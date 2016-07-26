@@ -120,18 +120,18 @@ abstract class AW_Abstract_Addon
 	{
 		if ( ! $this->is_automatewoo_active() )
 		{
-			$message = sprintf(__( '<strong>%s</strong> requires AutomateWoo to be installed and activated.', 'automatewoo-referrals' ), $this->name );
+			$message = sprintf(__( '<strong>%s</strong> requires AutomateWoo to be installed and activated.', 'automatewoo' ), $this->name );
 			echo '<div class="notice notice-warning"><p>' . $message . '</p></div>' . "\n";
 		}
 		else if ( ! $this->is_automatewoo_version_ok() )
 		{
-			$message = sprintf(__( '<strong>%s</strong> requires AutomateWoo version %s or later. Please update to the latest version.', 'automatewoo-referrals' ), $this->name, $this->required_automatewoo_version );
+			$message = sprintf(__( '<strong>%s</strong> requires AutomateWoo version %s or later. Please update to the latest version.', 'automatewoo' ), $this->name, $this->required_automatewoo_version );
 			echo '<div class="notice notice-warning"><p>' . $message . '</p></div>' . "\n";
 		}
 
 		if ( ! $this->is_woocommerce_version_ok() )
 		{
-			$message = sprintf(__( '<strong>%s</strong> requires WooCommerce version %s or later.', 'automatewoo-referrals' ), $this->name, $this->required_woocommerce_version );
+			$message = sprintf(__( '<strong>%s</strong> requires WooCommerce version %s or later.', 'automatewoo' ), $this->name, $this->required_woocommerce_version );
 			echo '<div class="notice notice-warning"><p>' . $message . '</p></div>' . "\n";
 		}
 	}

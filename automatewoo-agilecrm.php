@@ -1,18 +1,18 @@
 <?php
 /**
- * Plugin Name: AutomateWoo - Referrals Add-on
+ * Plugin Name: AutomateWoo - AgileCRM Add-on
  * Plugin URI: http://automatewoo.com
- * Description: Refer a Friend add-on for AutomateWoo.
- * Version: 1.1.6
+ * Description: AgileCRM Integration add-on for AutomateWoo.
+ * Version: 1.0.0
  * Author: Daniel Bitzer
  * Author URI: http://danielbitzer.com
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0
- * Text Domain: automatewoo-referrals
+ * Text Domain: automatewoo-agilecrm
  */
 
 
-// Copyright (c) 2015 Daniel Bitzer. All rights reserved.
+// Copyright (c) 2016 Daniel Bitzer. All rights reserved.
 //
 // Released under the GPLv3 license
 // http://www.gnu.org/licenses/gpl-3.0
@@ -44,7 +44,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	public $admin;
 
 	/** @var string */
-	public $required_automatewoo_version = '2.4.12';
+	public $required_automatewoo_version = '2.4.13';
 
 	/** @var string  */
 	public $required_woocommerce_version = '2.6';
