@@ -47,7 +47,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	private $api;
 
 	/** @var string */
-	public $required_automatewoo_version = '2.4.13';
+	public $required_automatewoo_version = '2.4.14';
 
 	/** @var string  */
 	public $required_woocommerce_version = '2.6';
@@ -74,6 +74,8 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	{
 		$this->includes();
 
+		new AW_AgileCRM_Workflows();
+
 		if ( is_admin() )
 		{
 			$this->admin = new AW_AgileCRM_Admin();
@@ -88,7 +90,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	 */
 	public function includes()
 	{
-		include_once $this->path( '/includes/options.php' );
+		include_once $this->path( '/includes/workflows.php' );
 
 		if ( is_admin() )
 		{
