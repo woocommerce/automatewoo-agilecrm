@@ -2,7 +2,9 @@
 /**
  * @class AW_AgileCRM_Options
  *
- * @property string $version
+ * @property string $api_domain
+ * @property string $api_email
+ * @property string $api_key
  */
 
 class AW_AgileCRM_Options extends AW_Options_API
