@@ -43,6 +43,9 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	/** @var AW_AgileCRM_Admin */
 	public $admin;
 
+	/** @var AW_AgileCRM_API */
+	private $api;
+
 	/** @var string */
 	public $required_automatewoo_version = '2.4.13';
 
@@ -111,10 +114,38 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	{
 		if ( ! isset( $this->options ) )
 		{
+			include_once $this->path( '/includes/options.php' );
 			$this->options = new AW_AgileCRM_Options();
 		}
 
 		return $this->options;
+	}
+
+
+	/**
+	 * @return AW_AgileCRM_API
+	 */
+	public function api()
+	{
+		if ( ! isset( $this->api ) )
+		{
+			include_once $this->path( '/includes/api.php' );
+
+			$api_domain = esc_attr( $this->options()->api_domain );
+			$api_email = esc_attr( $this->options()->api_email );
+			$api_key = esc_attr( $this->options()->api_key );
+
+			if ( $api_domain && $api_email && $api_key )
+			{
+				$this->api = new AW_AgileCRM_API( $api_domain, $api_email, $api_key );
+			}
+			else
+			{
+				$this->api = false;
+			}
+		}
+
+		return $this->api;
 	}
 
 
@@ -129,13 +160,13 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 
 
 	/**
-	 * @var AW_Referrals_Addon
+	 * @var AW_AgileCRM_Addon
 	 */
 	protected static $_instance = null;
 
 
 	/**
-	 * @return AW_Referrals_Addon - Main instance
+	 * @return AW_AgileCRM_Addon - Main instance
 	 */
 	public static function instance()
 	{

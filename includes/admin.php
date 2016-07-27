@@ -22,7 +22,7 @@ class AW_AgileCRM_Admin
 	 */
 	public function settings_tab( $tabs )
 	{
-		$tabs[] = AW_Referrals()->path( '/includes/admin/settings-tab.php' );
+		$tabs[] = AW_AgileCRM()->path( '/includes/settings-tab.php' );
 		return $tabs;
 	}
 
