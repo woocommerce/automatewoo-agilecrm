@@ -27,10 +27,12 @@ class AW_AgileCRM_Workflows
 		include_once AW_AgileCRM()->path( '/includes/actions/add-tags.php' );
 		include_once AW_AgileCRM()->path( '/includes/actions/remove-tags.php' );
 		include_once AW_AgileCRM()->path( '/includes/actions/add-note.php' );
+		include_once AW_AgileCRM()->path( '/includes/actions/add-task.php' );
 
 		new AW_Action_AgileCRM_Add_Tags();
 		new AW_Action_AgileCRM_Remove_Tags();
 		new AW_Action_AgileCRM_Add_Note();
+		new AW_Action_AgileCRM_Add_Task();
 	}
 
 }
