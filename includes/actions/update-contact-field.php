@@ -33,7 +33,6 @@ class AW_Action_AgileCRM_Update_Contact_Field extends AW_Action_AgileCRM_Abstrac
 		$this->add_contact_email_field();
 		$this->add_field( $field_name );
 		$this->add_field( $field_value );
-
 	}
 
 

@@ -36,8 +36,7 @@ abstract class AW_Action_AgileCRM_Abstract extends AW_Action
 		$tag = ( new AW_Field_Text_Input() )
 			->set_name('tags')
 			->set_title( __( 'Tags', 'automatewoo-agilecrm' ) )
-			->set_description( __( 'Add multiple tags separated by commas. Please note that tags are case-sensitive.', 'automatewoo-agilecrm' ) )
-			->set_required();
+			->set_description( __( 'Add multiple tags separated by commas. Please note that tags are case-sensitive.', 'automatewoo-agilecrm' ) );
 
 		$this->add_field($tag);
 	}
