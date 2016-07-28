@@ -1,0 +1,195 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: AutomateWoo - AgileCRM Add-on\n"
+"POT-Creation-Date: 2016-07-28 13:14+0930\n"
+"PO-Revision-Date: 2016-07-28 13:13+0930\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-WPHeader: automatewoo-agilecrm.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: addon-includes/abstract-addon.php:123
+#, php-format
+msgid "<strong>%s</strong> requires AutomateWoo to be installed and activated."
+msgstr ""
+
+#: addon-includes/abstract-addon.php:128
+#, php-format
+msgid ""
+"<strong>%s</strong> requires AutomateWoo version %s or later. Please update "
+"to the latest version."
+msgstr ""
+
+#: addon-includes/abstract-addon.php:134
+#, php-format
+msgid "<strong>%s</strong> requires WooCommerce version %s or later."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+#: automatewoo-agilecrm.php:60
+msgid "AutomateWoo - AgileCRM Add-on"
+msgstr ""
+
+#: includes/actions/abstract.php:17
+msgid "Server is missing CURL extension required to use the AgileCRM API."
+msgstr ""
+
+#: includes/actions/abstract.php:26
+msgid "Contact Email"
+msgstr ""
+
+#: includes/actions/abstract.php:28
+msgid "You can use variables such as user.email or guest.email here."
+msgstr ""
+
+#: includes/actions/abstract.php:38
+msgid "Tags"
+msgstr ""
+
+#: includes/actions/abstract.php:39
+msgid ""
+"Add multiple tags separated by commas. Please note that tags are case-"
+"sensitive."
+msgstr ""
+
+#: includes/actions/add-contact.php:17
+msgid "Create New Contact"
+msgstr ""
+
+#: includes/actions/add-contact.php:26
+msgid "First Name"
+msgstr ""
+
+#: includes/actions/add-contact.php:30
+msgid "Last Name"
+msgstr ""
+
+#: includes/actions/add-contact.php:34
+msgid "Company"
+msgstr ""
+
+#: includes/actions/add-contact.php:38
+msgid "Title"
+msgstr ""
+
+#: includes/actions/add-contact.php:42
+msgid "Star Value"
+msgstr ""
+
+#: includes/actions/add-contact.php:48
+msgid "Lead Score"
+msgstr ""
+
+#: includes/actions/add-note.php:17
+msgid "Add Note To Contact"
+msgstr ""
+
+#: includes/actions/add-note.php:26
+msgid "Note Subject"
+msgstr ""
+
+#: includes/actions/add-note.php:31
+msgid "Note Description"
+msgstr ""
+
+#: includes/actions/add-tags.php:14
+msgid "Add Tags To Contact"
+msgstr ""
+
+#: includes/actions/add-task.php:17
+msgid "Add Task To Contact"
+msgstr ""
+
+#: includes/actions/add-task.php:26
+msgid "Task Name"
+msgstr ""
+
+#: includes/actions/add-task.php:31
+msgid "Task Type"
+msgstr ""
+
+#: includes/actions/add-task.php:46
+msgid "Priority"
+msgstr ""
+
+#: includes/actions/add-task.php:57
+msgid "Due"
+msgstr ""
+
+#: includes/actions/add-task.php:63
+msgid "Description"
+msgstr ""
+
+#: includes/actions/remove-tags.php:17
+msgid "Remove Tags From Contact"
+msgstr ""
+
+#: includes/actions/update-contact-field.php:17
+msgid "Update Contact Custom Field"
+msgstr ""
+
+#: includes/actions/update-contact-field.php:26
+msgid "Custom Field Name"
+msgstr ""
+
+#: includes/actions/update-contact-field.php:31
+msgid "Custom Field Value"
+msgstr ""
+
+#: includes/settings-tab.php:18
+msgid "AgileCRM"
+msgstr ""
+
+#: includes/settings-tab.php:30
+msgid "AgileCRM API Details"
+msgstr ""
+
+#: includes/settings-tab.php:33
+msgid "Account Domain"
+msgstr ""
+
+#: includes/settings-tab.php:40
+msgid "Account Email"
+msgstr ""
+
+#: includes/settings-tab.php:42
+msgid "The email address you use to sign in to AgileCRM."
+msgstr ""
+
+#: includes/settings-tab.php:46
+msgid "API Key"
+msgstr ""
+
+#: includes/settings-tab.php:48
+msgid ""
+"Locate your AgileCRM API Key from Admin Settings -> API & Analytics -> REST "
+"API."
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "http://automatewoo.com"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "AgileCRM Integration add-on for AutomateWoo."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Daniel Bitzer"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://danielbitzer.com"
+msgstr ""
