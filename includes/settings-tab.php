@@ -39,13 +39,13 @@ class AW_AgileCRM_Settings_Tab extends AW_Admin_Settings_Tab_Abstract
 		$this->add_setting( 'api_email', [
 			'title' => __( 'Account Email', 'automatewoo-agilecrm' ),
 			'type' => 'text',
-			'desc_tip' => __( 'The email address you use to sign in to AgileCRM.', 'automatewoo-agilecrm' )
+			'tooltip' => __( 'The email address you use to sign in to AgileCRM.', 'automatewoo-agilecrm' )
 		]);
 
 		$this->add_setting( 'api_key', [
 			'title' => __( 'API Key', 'automatewoo-agilecrm' ),
 			'type' => 'text',
-			'desc_tip' => __( 'Locate your AgileCRM API Key from Admin Settings -> API & Analytics -> REST API.', 'automatewoo-agilecrm' )
+			'tooltip' => __( 'Locate your AgileCRM API Key from Admin Settings -> API & Analytics -> REST API.', 'automatewoo-agilecrm' )
 		]);
 
 		$this->section_end( 'api' );
