@@ -49,11 +49,12 @@ class AW_AgileCRM_Settings_Tab extends AW_Admin_Settings_Tab_Abstract
 		]);
 
 		$this->section_end( 'api' );
-
-
 	}
 
 
+	/**
+	 * @return array
+	 */
 	public function get_settings()
 	{
 		$this->load_settings();
@@ -63,23 +64,11 @@ class AW_AgileCRM_Settings_Tab extends AW_Admin_Settings_Tab_Abstract
 
 	/**
 	 * @param $id
-	 * @param $args
-	 * @return array
+	 * @return mixed
 	 */
-	protected function add_setting( $id, $args )
+	protected function get_default( $id )
 	{
-		$setting = [
-			'id' => $this->prefix . $id,
-			'autoload' => false
-		];
-
-		if ( isset( AW_AgileCRM()->options()->defaults[ $id ] ) )
-		{
-			$setting['default'] = AW_AgileCRM()->options()->defaults[ $id ];
-		}
-
-		$setting = array_merge( $setting, $args );
-		$this->settings[] = $setting;
+		return isset( AW_AgileCRM()->options()->defaults[ $id ] ) ? AW_AgileCRM()->options()->defaults[ $id ] : false;
 	}
 
 
