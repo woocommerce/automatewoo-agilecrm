@@ -161,6 +161,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	}
 
 
+
 	/**
 	 * @var AW_AgileCRM_Addon
 	 */

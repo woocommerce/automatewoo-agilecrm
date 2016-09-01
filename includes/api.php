@@ -88,6 +88,16 @@ class AW_AgileCRM_API extends AW_Integration
 
 
 	/**
+	 * @param $email
+	 * @return string
+	 */
+	function parse_email( $email )
+	{
+		return sanitize_email( strtolower( $email ) );
+	}
+
+
+	/**
 	 * Return false if not found
 	 *
 	 * @param $email
@@ -95,7 +105,7 @@ class AW_AgileCRM_API extends AW_Integration
 	 */
 	function get_contact_id_by_email( $email )
 	{
-		$email = sanitize_email( strtolower( $email ) );
+		$email = $this->parse_email( $email );
 
 		if ( $cache = $this->get_contact_id_cache( $email ) )
 		{
@@ -126,7 +136,7 @@ class AW_AgileCRM_API extends AW_Integration
 	{
 		if ( ! $id ) $id = '204'; // no matching contact
 
-		set_transient( 'aw_agilecrm_contact_id_' . md5( $email ), $id, DAY_IN_SECONDS * 30 );
+		set_transient( 'aw_agilecrm_contact_id_' . md5( $this->parse_email( $email ) ), $id, DAY_IN_SECONDS * 30 );
 	}
 
 
@@ -136,8 +146,50 @@ class AW_AgileCRM_API extends AW_Integration
 	 */
 	function get_contact_id_cache( $email )
 	{
-		return get_transient( 'aw_agilecrm_contact_id_' . md5( $email ) );
+		return get_transient( 'aw_agilecrm_contact_id_' . md5( $this->parse_email( $email ) ) );
 	}
 
+
+	/**
+	 * @param $email
+	 */
+	function clear_contact_id_cache( $email )
+	{
+		delete_transient( 'aw_agilecrm_contact_id_' . md5( $this->parse_email( $email ) ) );
+	}
+
+
+	/**
+	 * @param WC_Order $order
+	 * @param string $type shipping|billing
+	 * @return array
+	 */
+	function get_address_data_from_order( $order, $type = 'billing' )
+	{
+		$data = [];
+		$countries = WC()->countries->get_countries();
+
+		switch ( $type )
+		{
+			case 'billing':
+				$states = WC()->countries->get_states( $order->billing_country );
+				$data['address'] = trim( $order->billing_address_1 . ' ' . $order->billing_address_2 );
+				$data['city'] = $order->billing_city;
+				$data['zip'] = $order->billing_postcode;
+				$data['state'] = isset( $states[$order->billing_state] ) ? $states[$order->billing_state] : '';
+				$data['country'] = isset( $countries[$order->billing_country] ) ? $countries[$order->billing_country] : '';
+				break;
+
+			case 'shipping':
+				$states = WC()->countries->get_states( $order->shipping_country );
+				$data['address'] = trim( $order->shipping_address_1 . ' ' . $order->shipping_address_2 );
+				$data['city'] = $order->shipping_city;
+				$data['zip'] = $order->shipping_postcode;
+				$data['state'] = isset( $states[$order->shipping_state] ) ? $states[$order->shipping_state] : '';
+				$data['country'] = isset( $countries[$order->shipping_country] ) ? $countries[$order->shipping_country] : '';
+				break;
+		}
+		return $data;
+	}
 
 }

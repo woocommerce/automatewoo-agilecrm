@@ -14,7 +14,8 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 	 */
 	public function init()
 	{
-		$this->title = __( 'Create New Contact', 'automatewoo-agilecrm' );
+		$this->title = __( 'Create / Update Contact', 'automatewoo-agilecrm' );
+		$this->description = __( 'This trigger can be used to create or update contacts in AgileCRM. If an existing contact is found by email then an update will occur otherwise a new contact will be created. When updating a contact any fields left blank will not be updated e.g. if you only want to update the address just select an address and enter an email, all other fields can be left blank.', 'automatewoo-agilecrm' );
 		parent::init();
 	}
 
@@ -37,6 +38,16 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 			->set_name( 'title' )
 			->set_title( __( 'Title', 'automatewoo-agilecrm' ) );
 
+		$address_choices = [
+			'order_billing' => __('Order Billing Address', 'automatewoo-agilecrm'),
+			'order_shipping' => __('Order Shipping Address', 'automatewoo-agilecrm'),
+		];
+
+		$address = ( new AW_Field_Select() )
+			->set_name( 'address' )
+			->set_options( $address_choices )
+			->set_title( __( 'Address', 'automatewoo-agilecrm' ) );
+
 		$star_value = ( new AW_Field_Number_Input() )
 			->set_name('star_value')
 			->set_title( __( 'Star Value', 'automatewoo-agilecrm' ) )
@@ -55,6 +66,7 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 		$this->add_field( $last_name );
 		$this->add_field( $company );
 		$this->add_field( $title );
+		$this->add_field( $address );
 		$this->add_field( $star_value );
 		$this->add_field( $lead_score );
 		$this->add_tags_field();
@@ -72,6 +84,7 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 		$last_name = aw_clean( $this->get_option( 'last_name', true ) );
 		$company = aw_clean( $this->get_option( 'company', true ) );
 		$title = aw_clean( $this->get_option( 'title', true ) );
+		$address = aw_clean( $this->get_option( 'address' ) );
 		$star_value = absint( $this->get_option( 'star_value', true ) );
 		$lead_score = absint( $this->get_option( 'lead_score', true ) );
 		$tags = aw_clean( $this->get_option( 'tags', true ) );
@@ -79,13 +92,24 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 		if ( empty( $email ) || ! AW_AgileCRM()->api() )
 			return;
 
-		$contact_id = AW_AgileCRM()->api()->get_contact_id_by_email( $email );
-
-		if ( $contact_id ) return; // contact already exists
-
 		$contact = [
 			'properties' => []
 		];
+		$contact_id = AW_AgileCRM()->api()->get_contact_id_by_email( $email );
+
+		if ( $contact_id )
+		{
+			// update a contact
+			$contact['id'] = $contact_id;
+			$method = 'PUT';
+			$endpoint = '/contacts/edit-properties';
+		}
+		else
+		{
+			$method = 'POST';
+			$endpoint = '/contacts';
+			AW_AgileCRM()->api()->clear_contact_id_cache( $email ); // clear cache because this contact is about to exist
+		}
 
 		$contact['properties'][] = [
 			'type' =>  'SYSTEM',
@@ -117,6 +141,30 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 			"value" => $title
 		];
 
+		$address_data = false;
+
+		switch ( $address )
+		{
+			case 'order_billing':
+				$order = $this->workflow->get_data_item( 'order' );
+				if ( $order ) $address_data = AW_AgileCRM()->api()->get_address_data_from_order( $order, 'billing' );
+				break;
+
+			case 'order_shipping':
+				$order = $this->workflow->get_data_item( 'order' );
+				if ( $order ) $address_data = AW_AgileCRM()->api()->get_address_data_from_order( $order, 'shipping' );
+				break;
+		}
+
+		if ( $address_data )
+		{
+			$contact['properties'][] = [
+				'type' =>  'SYSTEM',
+				'name' => 'address',
+				"value" => json_encode( $address_data )
+			];
+		}
+
 
 		if ( $star_value ) $contact['star_value'] = $star_value;
 		if ( $lead_score ) $contact['lead_score'] = $lead_score;
@@ -126,7 +174,7 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 			$contact['tags'] = array_map( 'trim', explode( ',', $tags ) );
 		}
 
-		$response = AW_AgileCRM()->api()->request( 'POST', '/contacts', $contact );
+		$response = AW_AgileCRM()->api()->request( $method, $endpoint, $contact );
 
 	}
 
