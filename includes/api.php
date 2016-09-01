@@ -88,12 +88,13 @@ class AW_AgileCRM_API extends AW_Integration
 
 
 	/**
+	 * Remove '+' part of emails for agileCRM
 	 * @param $email
 	 * @return string
 	 */
 	function parse_email( $email )
 	{
-		return sanitize_email( strtolower( $email ) );
+		return preg_replace('/\+[^@]*/i' , '', sanitize_email( strtolower( $email ) ) );
 	}
 
 
@@ -160,7 +161,7 @@ class AW_AgileCRM_API extends AW_Integration
 
 
 	/**
-	 * @param WC_Order $order
+	 * @param WC_Order|WC_User $order
 	 * @param string $type shipping|billing
 	 * @return array
 	 */

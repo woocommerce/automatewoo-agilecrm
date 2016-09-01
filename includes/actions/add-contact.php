@@ -39,8 +39,8 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 			->set_title( __( 'Title', 'automatewoo-agilecrm' ) );
 
 		$address_choices = [
-			'order_billing' => __('Order Billing Address', 'automatewoo-agilecrm'),
-			'order_shipping' => __('Order Shipping Address', 'automatewoo-agilecrm'),
+			'billing' => __( 'Billing Address', 'automatewoo-agilecrm' ),
+			'shipping' => __( 'Shipping Address', 'automatewoo-agilecrm' ),
 		];
 
 		$address = ( new AW_Field_Select() )
@@ -114,7 +114,7 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 		$contact['properties'][] = [
 			'type' =>  'SYSTEM',
 			'name' => 'email',
-			"value" => $email
+			"value" => AW_AgileCRM()->api()->parse_email( $email )
 		];
 
 		if ( $first_name ) $contact['properties'][] = [
@@ -141,28 +141,37 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 			"value" => $title
 		];
 
-		$address_data = false;
 
-		switch ( $address )
+		if ( $address )
 		{
-			case 'order_billing':
-				$order = $this->workflow->get_data_item( 'order' );
-				if ( $order ) $address_data = AW_AgileCRM()->api()->get_address_data_from_order( $order, 'billing' );
-				break;
+			$address_data = false;
+			$order = $this->workflow->get_data_item( 'order' );
+			$user = $this->workflow->get_data_item( 'user' );
 
-			case 'order_shipping':
-				$order = $this->workflow->get_data_item( 'order' );
-				if ( $order ) $address_data = AW_AgileCRM()->api()->get_address_data_from_order( $order, 'shipping' );
-				break;
-		}
+			if ( $order || $user instanceof WP_User )
+			{
+				$object = $order ? $order : $user;
 
-		if ( $address_data )
-		{
-			$contact['properties'][] = [
-				'type' =>  'SYSTEM',
-				'name' => 'address',
-				"value" => json_encode( $address_data )
-			];
+				switch ( $address )
+				{
+					case 'billing':
+						$address_data = AW_AgileCRM()->api()->get_address_data_from_order( $object, 'billing' );
+						break;
+
+					case 'shipping':
+						$address_data = AW_AgileCRM()->api()->get_address_data_from_order( $object, 'shipping' );
+						break;
+				}
+
+				if ( $address_data )
+				{
+					$contact['properties'][] = [
+						'type' =>  'SYSTEM',
+						'name' => 'address',
+						"value" => json_encode( $address_data )
+					];
+				}
+			}
 		}
 
 
