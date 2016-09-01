@@ -68,12 +68,12 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract
 	public function run()
 	{
 		$email = aw_clean_email( $this->get_option( 'email', true ) );
-		$first_name = aw_clean( $this->get_option( 'first_name' ) );
-		$last_name = aw_clean( $this->get_option( 'last_name' ) );
-		$company = aw_clean( $this->get_option( 'company' ) );
-		$title = aw_clean( $this->get_option( 'title' ) );
-		$star_value = absint( $this->get_option( 'star_value' ) );
-		$lead_score = absint( $this->get_option( 'lead_score' ) );
+		$first_name = aw_clean( $this->get_option( 'first_name', true ) );
+		$last_name = aw_clean( $this->get_option( 'last_name', true ) );
+		$company = aw_clean( $this->get_option( 'company', true ) );
+		$title = aw_clean( $this->get_option( 'title', true ) );
+		$star_value = absint( $this->get_option( 'star_value', true ) );
+		$lead_score = absint( $this->get_option( 'lead_score', true ) );
 		$tags = aw_clean( $this->get_option( 'tags', true ) );
 
 		if ( empty( $email ) || ! AW_AgileCRM()->api() )
