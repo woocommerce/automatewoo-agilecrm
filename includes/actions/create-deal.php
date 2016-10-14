@@ -2,7 +2,7 @@
 /**
  * @class       AW_Action_AgileCRM_Create_Deal
  * @package     AutomateWoo/Addons/AgileCRM
- * @since       1.0.0
+ * @since       1.2
  */
 
 class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract

@@ -1,3 +1,8 @@
+1.2.0 *October 14, 2016*
+---
+* Feature - Add action 'Create Deal'
+
+
 1.1.0 *September 1, 2016*
 ---
 * Feature - Added support for contact address fields

@@ -3,14 +3,14 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: AutomateWoo - AgileCRM Add-on\n"
-"POT-Creation-Date: 2016-07-28 13:14+0930\n"
+"POT-Creation-Date: 2016-10-14 13:12+1030\n"
 "PO-Revision-Date: 2016-07-28 13:13+0930\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 1.8.9\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-WPHeader: automatewoo-agilecrm.php\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -20,19 +20,19 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: addon-includes/abstract-addon.php:123
+#: addon-includes/abstract-addon.php:125
 #, php-format
 msgid "<strong>%s</strong> requires AutomateWoo to be installed and activated."
 msgstr ""
 
-#: addon-includes/abstract-addon.php:128
+#: addon-includes/abstract-addon.php:130
 #, php-format
 msgid ""
 "<strong>%s</strong> requires AutomateWoo version %s or later. Please update "
 "to the latest version."
 msgstr ""
 
-#: addon-includes/abstract-addon.php:134
+#: addon-includes/abstract-addon.php:136
 #, php-format
 msgid "<strong>%s</strong> requires WooCommerce version %s or later."
 msgstr ""
@@ -46,49 +46,70 @@ msgstr ""
 msgid "Server is missing CURL extension required to use the AgileCRM API."
 msgstr ""
 
-#: includes/actions/abstract.php:26
+#: includes/actions/abstract.php:29
 msgid "Contact Email"
 msgstr ""
 
-#: includes/actions/abstract.php:28
+#: includes/actions/abstract.php:31
 msgid "You can use variables such as user.email or guest.email here."
 msgstr ""
 
-#: includes/actions/abstract.php:38
+#: includes/actions/abstract.php:43
 msgid "Tags"
 msgstr ""
 
-#: includes/actions/abstract.php:39
+#: includes/actions/abstract.php:44
 msgid ""
 "Add multiple tags separated by commas. Please note that tags are case-"
 "sensitive."
 msgstr ""
 
 #: includes/actions/add-contact.php:17
-msgid "Create New Contact"
+msgid "Create / Update Contact"
 msgstr ""
 
-#: includes/actions/add-contact.php:26
+#: includes/actions/add-contact.php:18
+msgid ""
+"This trigger can be used to create or update contacts in AgileCRM. If an "
+"existing contact is found by email then an update will occur otherwise a new "
+"contact will be created. When updating a contact any fields left blank will "
+"not be updated e.g. if you only want to update the address just select an "
+"address and enter an email, all other fields can be left blank."
+msgstr ""
+
+#: includes/actions/add-contact.php:27
 msgid "First Name"
 msgstr ""
 
-#: includes/actions/add-contact.php:30
+#: includes/actions/add-contact.php:31
 msgid "Last Name"
 msgstr ""
 
-#: includes/actions/add-contact.php:34
+#: includes/actions/add-contact.php:35
 msgid "Company"
 msgstr ""
 
-#: includes/actions/add-contact.php:38
+#: includes/actions/add-contact.php:39
 msgid "Title"
 msgstr ""
 
 #: includes/actions/add-contact.php:42
+msgid "Billing Address"
+msgstr ""
+
+#: includes/actions/add-contact.php:43
+msgid "Shipping Address"
+msgstr ""
+
+#: includes/actions/add-contact.php:49
+msgid "Address"
+msgstr ""
+
+#: includes/actions/add-contact.php:53
 msgid "Star Value"
 msgstr ""
 
-#: includes/actions/add-contact.php:48
+#: includes/actions/add-contact.php:59
 msgid "Lead Score"
 msgstr ""
 
@@ -128,8 +149,38 @@ msgstr ""
 msgid "Due"
 msgstr ""
 
-#: includes/actions/add-task.php:63
+#: includes/actions/add-task.php:63 includes/actions/create-deal.php:57
 msgid "Description"
+msgstr ""
+
+#: includes/actions/create-deal.php:17
+msgid "Create Deal"
+msgstr ""
+
+#: includes/actions/create-deal.php:26
+msgid "Name"
+msgstr ""
+
+#: includes/actions/create-deal.php:31
+msgid "Value"
+msgstr ""
+
+#: includes/actions/create-deal.php:36
+msgid "Probability (%)"
+msgstr ""
+
+#: includes/actions/create-deal.php:43
+msgid "Milestone"
+msgstr ""
+
+#: includes/actions/create-deal.php:52
+msgid "Close Date"
+msgstr ""
+
+#: includes/actions/create-deal.php:66
+msgid ""
+"Please note that you must create the contact before you can assign a deal to "
+"them."
 msgstr ""
 
 #: includes/actions/remove-tags.php:17
