@@ -137,7 +137,7 @@ class AW_AgileCRM_API extends AW_Integration
 	{
 		if ( ! $id ) $id = '204'; // no matching contact
 
-		set_transient( 'aw_agilecrm_contact_id_' . md5( $this->parse_email( $email ) ), $id, DAY_IN_SECONDS * 30 );
+		set_transient( 'aw_agilecrm_contact_id_' . md5( $this->parse_email( $email ) ), $id, DAY_IN_SECONDS * 7 );
 	}
 
 
@@ -191,6 +191,36 @@ class AW_AgileCRM_API extends AW_Integration
 				break;
 		}
 		return $data;
+	}
+
+
+	/**
+	 * @return array
+	 */
+	function get_milestones()
+	{
+		if ( $cache = get_transient( 'aw_agilecrm_milestones' ) )
+			return $cache;
+
+		$response = $this->request( 'GET' , '/milestone/pipelines' );
+
+		if ( ! $response->is_successful() )
+			return [];
+
+		$body = $response->get_body();
+		$milestones = [];
+
+		if ( is_array( $body ) ) foreach ( $body as $track )
+		{
+			if ( isset( $track['milestones'] ) )
+			{
+				$milestones = array_merge( $milestones, explode( ',', $track['milestones'] ) );
+			}
+		}
+
+		set_transient( 'aw_agilecrm_milestones', $milestones, MINUTE_IN_SECONDS * 5 );
+
+		return $milestones;
 	}
 
 }
