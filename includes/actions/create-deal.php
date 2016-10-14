@@ -79,7 +79,7 @@ class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract
 		$probability = absint( $this->get_option( 'probability', true ) );
 		$milestone = aw_clean( $this->get_option( 'milestone' ) );
 		$contact_email = aw_clean_email( $this->get_option( 'email', true ) );
-		$close_date = aw_clean( $this->get_option( 'close_date' ) );
+		$close_date = aw_clean( $this->get_option( 'close_date', true ) );
 		$description = aw_clean( $this->get_option( 'description', true ) );
 
 		if ( empty( $name ) || empty( $value ) || empty( $milestone ) || empty( $name ) || ! AW_AgileCRM()->api() )
@@ -87,7 +87,7 @@ class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract
 
 		$data = [
 			'name' => $name,
-			'expected_value' => aw_price_to_float( $value ),
+			'expected_value' => aw_agilecrm_price_to_float( $value ),
 			'probability' => $probability,
 			'milestone' => $milestone
 		];

@@ -184,6 +184,24 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 
 
 
+
+/**
+ * @todo switch out in next version for aw_price_to_float()
+ * @param $price
+ * @return float
+ */
+function aw_agilecrm_price_to_float( $price )
+{
+	$price = html_entity_decode( str_replace(',', '.', $price ) );
+
+	$price = preg_replace( "/[^0-9\.]/", "", $price );
+
+	return (float) $price;
+}
+
+
+
+
 /**
  * Returns the main instance
  */
