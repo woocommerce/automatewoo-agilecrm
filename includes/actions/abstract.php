@@ -19,6 +19,9 @@ abstract class AW_Action_AgileCRM_Abstract extends AW_Action
 	}
 
 
+	/**
+	 * @return AW_Field_Text_Input
+	 */
 	function add_contact_email_field()
 	{
 		$email = ( new AW_Field_Text_Input() )
@@ -28,6 +31,8 @@ abstract class AW_Action_AgileCRM_Abstract extends AW_Action
 			->set_description( __( 'You can use variables such as user.email or guest.email here.', 'automatewoo-agilecrm' ) );
 
 		$this->add_field( $email );
+
+		return $email;
 	}
 
 

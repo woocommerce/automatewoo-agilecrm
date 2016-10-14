@@ -29,6 +29,7 @@ class AW_AgileCRM_Workflows
 		include_once AW_AgileCRM()->path( '/includes/actions/remove-tags.php' );
 		include_once AW_AgileCRM()->path( '/includes/actions/add-note.php' );
 		include_once AW_AgileCRM()->path( '/includes/actions/add-task.php' );
+		include_once AW_AgileCRM()->path( '/includes/actions/create-deal.php' );
 		include_once AW_AgileCRM()->path( '/includes/actions/update-contact-field.php' );
 
 		new AW_Action_AgileCRM_Add_Contact();
@@ -37,6 +38,7 @@ class AW_AgileCRM_Workflows
 		new AW_Action_AgileCRM_Add_Note();
 		new AW_Action_AgileCRM_Add_Task();
 		new AW_Action_AgileCRM_Update_Contact_Field();
+		new AW_Action_AgileCRM_Create_Deal();
 	}
 
 }
