@@ -59,7 +59,7 @@ class AW_Action_AgileCRM_Update_Contact_Field extends AW_Action_AgileCRM_Abstrac
 					[
 						'type' => 'CUSTOM',
 						'name' => $field_name,
-						'value' => $field_value
+						'value' => html_entity_decode( $field_value )
 					]
 				],
 			]);
