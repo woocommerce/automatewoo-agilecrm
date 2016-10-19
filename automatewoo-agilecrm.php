@@ -3,7 +3,7 @@
  * Plugin Name: AutomateWoo - AgileCRM Add-on
  * Plugin URI: http://automatewoo.com
  * Description: AgileCRM Integration add-on for AutomateWoo.
- * Version: 1.2.0
+ * Version: 1.2.1
  * Author: Daniel Bitzer
  * Author URI: http://danielbitzer.com
  * License: GPLv3
@@ -35,7 +35,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	public $id = 'automatewoo-agilecrm';
 
 	/** @var string  */
-	public $version = '1.2.0';
+	public $version = '1.2.1';
 
 	/** @var AW_AgileCRM_Options */
 	private $options;

@@ -1,3 +1,8 @@
+1.2.1 *October 19, 2016*
+---
+* Tweak - Decode all HTML entities when updating contact custom fields
+
+
 1.2.0 *October 14, 2016*
 ---
 * Feature - Add action 'Create Deal'
