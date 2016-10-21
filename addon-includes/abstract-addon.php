@@ -51,6 +51,11 @@ if ( ! class_exists('AW_Abstract_Addon') ):
 		 */
 		abstract function options();
 
+		/**
+		 * Optional installer method
+		 */
+		function install() {}
+
 
 		/**
 		 * Constructor
@@ -59,6 +64,7 @@ if ( ! class_exists('AW_Abstract_Addon') ):
 		{
 			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 			add_action( 'automatewoo_init_addons', array( $this, 'maybe_init' ) );
+			add_action( 'admin_init', array( $this, 'check_version' ), 6 );
 		}
 
 
@@ -140,6 +146,30 @@ if ( ! class_exists('AW_Abstract_Addon') ):
 
 
 		/**
+		 * Check the version stored in the database and determine if an upgrade needs to occur
+		 */
+		function check_version()
+		{
+			if ( defined( 'IFRAME_REQUEST' ) || is_ajax() )
+				return;
+
+			if (  $this->options()->version == $this->version )
+				return;
+
+			$this->install();
+
+			if ( $this->is_database_upgrade_available() )
+			{
+				add_action( 'admin_notices', [ $this, 'data_upgrade_prompt' ] );
+			}
+			else
+			{
+				$this->update_database_version();
+			}
+		}
+
+
+		/**
 		 * @return bool
 		 */
 		function is_database_upgrade_available()
@@ -176,6 +206,18 @@ if ( ! class_exists('AW_Abstract_Addon') ):
 		function update_database_version()
 		{
 			update_option( $this->options()->prefix . 'version', $this->version, true );
+		}
+
+
+		/**
+		 * Renders prompt notice for user to update
+		 */
+		function data_upgrade_prompt()
+		{
+			AW()->admin->get_view( 'data-upgrade-prompt', [
+				'plugin_name' => $this->name,
+				'plugin_slug' => $this->plugin_slug
+			]);
 		}
 
 
