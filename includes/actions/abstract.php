@@ -28,7 +28,7 @@ abstract class AW_Action_AgileCRM_Abstract extends AW_Action
 			->set_name( 'email' )
 			->set_title( __( 'Contact Email', 'automatewoo-agilecrm' ) )
 			->set_required()
-			->set_description( __( 'You can use variables such as user.email or guest.email here.', 'automatewoo-agilecrm' ) );
+			->set_description( __( 'You can use variables such as {{ user.email }} or {{ guest.email }} here.', 'automatewoo-agilecrm' ) );
 
 		$this->add_field( $email );
 

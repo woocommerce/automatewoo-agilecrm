@@ -47,7 +47,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	private $api;
 
 	/** @var string */
-	public $required_automatewoo_version = '2.6.11';
+	public $required_automatewoo_version = '2.7';
 
 	/** @var string  */
 	public $required_woocommerce_version = '2.6';
