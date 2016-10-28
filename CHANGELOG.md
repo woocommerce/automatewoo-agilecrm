@@ -1,3 +1,8 @@
+1.2.2 *October 27, 2016*
+---
+* Tweak - Updates and clean up as per AutomateWoo 2.7
+
+
 1.2.1 *October 19, 2016*
 ---
 * Tweak - Decode all HTML entities when updating contact custom fields
