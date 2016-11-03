@@ -58,13 +58,12 @@ if ( ! class_exists('AW_Abstract_Addon') ):
 
 
 		/**
-		 * Constructor
+		 * Constructor for add-on, core plugin not be loaded at this point
 		 */
 		function __construct()
 		{
 			add_action( 'admin_notices', array( $this, 'admin_notices' ) );
 			add_action( 'automatewoo_init_addons', array( $this, 'maybe_init' ) );
-			add_action( 'admin_init', array( $this, 'check_version' ), 6 );
 		}
 
 
@@ -150,9 +149,6 @@ if ( ! class_exists('AW_Abstract_Addon') ):
 		 */
 		function check_version()
 		{
-			if ( defined( 'IFRAME_REQUEST' ) || is_ajax() )
-				return;
-
 			if (  $this->options()->version == $this->version )
 				return;
 
