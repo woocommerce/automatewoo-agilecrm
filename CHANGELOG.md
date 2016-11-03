@@ -1,3 +1,8 @@
+1.2.3 *November 4, 2016*
+---
+* Fix - Error if add-on was activated without AutomateWoo installed
+
+
 1.2.2 *October 27, 2016*
 ---
 * Tweak - Updates and clean up as per AutomateWoo 2.7
