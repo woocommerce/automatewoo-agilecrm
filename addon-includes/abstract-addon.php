@@ -188,6 +188,7 @@ if ( ! class_exists('AW_Abstract_Addon') ):
 		 */
 		function update_database_version() {
 			update_option( $this->options()->prefix . 'version', $this->version, true );
+			do_action( 'automatewoo_addon_updated' );
 		}
 
 
