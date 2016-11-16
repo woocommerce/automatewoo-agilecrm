@@ -56,6 +56,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon {
 	 * Constructor
 	 */
 	public function __construct() {
+
 		$this->name = __( 'AutomateWoo - AgileCRM Add-on', 'automatewoo-agilecrm' );
 
 		$this->plugin_basename = plugin_basename( __FILE__ );
@@ -70,6 +71,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon {
 	 * Initiate
 	 */
 	public function init() {
+
 		$this->includes();
 
 		new AW_AgileCRM_Workflows();
@@ -86,6 +88,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon {
 	 * Includes
 	 */
 	public function includes() {
+		
 		include_once $this->path( '/includes/workflows.php' );
 
 		if ( is_admin() ) {
