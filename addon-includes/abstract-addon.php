@@ -159,8 +159,9 @@ if ( ! class_exists('AW_Abstract_Addon') ):
 		 */
 		function is_database_upgrade_available() {
 
-			if ( $this->options()->version == $this->version )
+			if ( $this->options()->version == $this->version || empty( $this->db_updates ) ) {
 				return false;
+			}
 
 			return $this->options()->version && version_compare( $this->options()->version, max( $this->db_updates ), '<' );
 		}
