@@ -47,7 +47,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	private $api;
 
 	/** @var string */
-	public $required_automatewoo_version = '2.7.2';
+	public $required_automatewoo_version = '2.7.5';
 
 	/** @var string  */
 	public $required_woocommerce_version = '2.6';
@@ -181,25 +181,6 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	}
 
 }
-
-
-
-
-/**
- * @todo switch out in next version for aw_price_to_float()
- * @param $price
- * @return float
- */
-function aw_agilecrm_price_to_float( $price )
-{
-	$price = html_entity_decode( str_replace(',', '.', $price ) );
-
-	$price = preg_replace( "/[^0-9\.]/", "", $price );
-
-	return (float) $price;
-}
-
-
 
 
 /**

@@ -87,7 +87,7 @@ class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract
 
 		$data = [
 			'name' => $name,
-			'expected_value' => aw_agilecrm_price_to_float( $value ),
+			'expected_value' => aw_price_to_float( $value ),
 			'probability' => $probability,
 			'milestone' => $milestone
 		];
