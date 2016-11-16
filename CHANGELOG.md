@@ -1,3 +1,8 @@
+1.2.4 *November 16, 2016*
+---
+* Tweak - Housekeeping
+
+
 1.2.3 *November 4, 2016*
 ---
 * Fix - Error if add-on was activated without AutomateWoo installed

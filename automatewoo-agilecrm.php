@@ -3,7 +3,7 @@
  * Plugin Name: AutomateWoo - AgileCRM Add-on
  * Plugin URI: http://automatewoo.com
  * Description: AgileCRM Integration add-on for AutomateWoo.
- * Version: 1.2.3
+ * Version: 1.2.4
  * Author: Daniel Bitzer
  * Author URI: http://danielbitzer.com
  * License: GPLv3
@@ -29,13 +29,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 include 'addon-includes/abstract-addon.php';
 
 
-class AW_AgileCRM_Addon extends AW_Abstract_Addon
-{
+class AW_AgileCRM_Addon extends AW_Abstract_Addon {
+
 	/** @var string  */
 	public $id = 'automatewoo-agilecrm';
 
 	/** @var string  */
-	public $version = '1.2.3';
+	public $version = '1.2.4';
 
 	/** @var AW_AgileCRM_Options */
 	private $options;
@@ -55,9 +55,8 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	/**
 	 * Constructor
 	 */
-	public function __construct()
-	{
-		$this->name = __('AutomateWoo - AgileCRM Add-on', 'automatewoo-agilecrm');
+	public function __construct() {
+		$this->name = __( 'AutomateWoo - AgileCRM Add-on', 'automatewoo-agilecrm' );
 
 		$this->plugin_basename = plugin_basename( __FILE__ );
 		list ( $this->plugin_slug, $this->plugin_main_file ) = explode( '/', $this->plugin_basename );
@@ -70,14 +69,12 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	/**
 	 * Initiate
 	 */
-	public function init()
-	{
+	public function init() {
 		$this->includes();
 
 		new AW_AgileCRM_Workflows();
 
-		if ( is_admin() )
-		{
+		if ( is_admin() ) {
 			$this->admin = new AW_AgileCRM_Admin();
 		}
 
@@ -88,12 +85,10 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	/**
 	 * Includes
 	 */
-	public function includes()
-	{
+	public function includes() {
 		include_once $this->path( '/includes/workflows.php' );
 
-		if ( is_admin() )
-		{
+		if ( is_admin() ) {
 			include_once $this->path( '/includes/admin.php' );
 		}
 	}
@@ -102,8 +97,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	/**
 	 *
 	 */
-	public function load_plugin_textdomain()
-	{
+	public function load_plugin_textdomain() {
 		load_plugin_textdomain( 'automatewoo-agilecrm', false, "automatewoo-agilecrm/languages" );
 	}
 
@@ -112,10 +106,8 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	/**
 	 * @return AW_AgileCRM_Options
 	 */
-	public function options()
-	{
-		if ( ! isset( $this->options ) )
-		{
+	public function options() {
+		if ( ! isset( $this->options ) ) {
 			include_once $this->path( '/includes/options.php' );
 			$this->options = new AW_AgileCRM_Options();
 		}
@@ -127,22 +119,18 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	/**
 	 * @return AW_AgileCRM_API
 	 */
-	public function api()
-	{
-		if ( ! isset( $this->api ) )
-		{
+	public function api() {
+		if ( ! isset( $this->api ) ) {
 			include_once $this->path( '/includes/api.php' );
 
 			$api_domain = esc_attr( $this->options()->api_domain );
 			$api_email = esc_attr( $this->options()->api_email );
 			$api_key = esc_attr( $this->options()->api_key );
 
-			if ( $api_domain && $api_email && $api_key )
-			{
+			if ( $api_domain && $api_email && $api_key ) {
 				$this->api = new AW_AgileCRM_API( $api_domain, $api_email, $api_key );
 			}
-			else
-			{
+			else {
 				$this->api = false;
 			}
 		}
@@ -155,8 +143,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	/**
 	 * @return string
 	 */
-	public function admin_start_url()
-	{
+	public function admin_start_url() {
 		return admin_url( 'admin.php?page=automatewoo-settings&tab=agilecrm' );
 	}
 
@@ -171,10 +158,8 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 	/**
 	 * @return AW_AgileCRM_Addon - Main instance
 	 */
-	public static function instance()
-	{
-		if ( is_null( self::$_instance ) )
-		{
+	public static function instance() {
+		if ( is_null( self::$_instance ) ) {
 			self::$_instance = new self();
 		}
 		return self::$_instance;
@@ -186,8 +171,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon
 /**
  * Returns the main instance
  */
-function AW_AgileCRM()
-{
+function AW_AgileCRM() {
 	return AW_AgileCRM_Addon::instance();
 }
 AW_AgileCRM();
