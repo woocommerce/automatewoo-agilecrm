@@ -63,6 +63,8 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon {
 		list ( $this->plugin_slug, $this->plugin_main_file ) = explode( '/', $this->plugin_basename );
 		$this->plugin_path = dirname( __FILE__ );
 
+		$this->load_plugin_textdomain();
+
 		parent::__construct();
 	}
 
