@@ -7,14 +7,16 @@
  * @property string $api_key
  */
 
-class AW_AgileCRM_Options extends AW_Options_API
-{
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+
+class AW_AgileCRM_Options extends AW_Options_API {
+
 	/** @var string */
 	public $prefix = 'aw_agilecrm_';
 
 
-	public function __construct()
-	{
+	public function __construct() {
 		$this->defaults = [
 
 		];

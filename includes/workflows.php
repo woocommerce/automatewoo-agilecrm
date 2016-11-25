@@ -7,22 +7,16 @@
  * @since		1.0.0
  */
 
-class AW_AgileCRM_Workflows
-{
-	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
+class AW_AgileCRM_Workflows {
+
+
+	public function __construct() {
 		add_action( 'automatewoo_actions_loaded', [ $this, 'load_actions' ] );
 	}
 
 
-	/**
-	 * Load actions
-	 */
-	public function load_actions()
-	{
+	public function load_actions() {
+
 		include_once AW_AgileCRM()->path( '/includes/actions/abstract.php' );
 		include_once AW_AgileCRM()->path( '/includes/actions/add-contact.php' );
 		include_once AW_AgileCRM()->path( '/includes/actions/add-tags.php' );

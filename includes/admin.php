@@ -3,25 +3,19 @@
  * @class AW_AgileCRM_Admin
  */
 
-class AW_AgileCRM_Admin
-{
+class AW_AgileCRM_Admin {
 
-	/**
-	 * Constructor
-	 */
-	public function __construct()
-	{
+
+	function __construct() {
 		add_filter( 'automatewoo/settings/tabs', [ $this, 'settings_tab' ] );
 	}
-
 
 
 	/**
 	 * @param $tabs
 	 * @return array
 	 */
-	public function settings_tab( $tabs )
-	{
+	function settings_tab( $tabs ) {
 		$tabs[] = AW_AgileCRM()->path( '/includes/settings-tab.php' );
 		return $tabs;
 	}
@@ -31,8 +25,8 @@ class AW_AgileCRM_Admin
 	 * @param $view
 	 * @param array $args
 	 */
-	public function get_view( $view, $args = [] )
-	{
+	function get_view( $view, $args = [] ) {
+
 		if ( $args && is_array( $args ) )
 			extract( $args );
 
@@ -41,6 +35,5 @@ class AW_AgileCRM_Admin
 		if ( file_exists( $path ) )
 			include( $path );
 	}
-
 
 }

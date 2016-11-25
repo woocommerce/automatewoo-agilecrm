@@ -5,8 +5,11 @@
  * @since		2.3
  */
 
-class AW_AgileCRM_API extends AW_Integration
-{
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+
+class AW_AgileCRM_API extends AW_Integration {
+
 	/** @var string */
 	public $integration_id = 'agilecrm';
 
@@ -25,8 +28,7 @@ class AW_AgileCRM_API extends AW_Integration
 	 * @param $api_email
 	 * @param $api_key
 	 */
-	function __construct( $api_domain, $api_email, $api_key )
-	{
+	function __construct( $api_domain, $api_email, $api_key ) {
 		$this->api_email = $api_email;
 		$this->api_key = $api_key;
 		$this->api_root = str_replace( '<domain>', $api_domain, $this->api_root );
@@ -42,8 +44,8 @@ class AW_AgileCRM_API extends AW_Integration
 	 *
 	 * @return AW_Remote_Request
 	 */
-	function request( $method, $endpoint, $args = array() )
-	{
+	function request( $method, $endpoint, $args = [] ) {
+
 		$request_args = [
 			'headers' => [
 				'Authorization' => 'Basic ' . base64_encode(  $this->api_email . ':' . $this->api_key ),
@@ -57,8 +59,7 @@ class AW_AgileCRM_API extends AW_Integration
 
 		$url = $this->api_root . $endpoint;
 
-		switch ( $method )
-		{
+		switch ( $method ) {
 			case 'GET':
 				$url = add_query_arg( $args, $url );
 				break;
@@ -70,12 +71,10 @@ class AW_AgileCRM_API extends AW_Integration
 
 		$request = new AW_Remote_Request( $url, $request_args );
 
-		if ( $request->is_failed() )
-		{
+		if ( $request->is_failed() ) {
 			$this->log( $request->get_error_message() );
 		}
-		elseif ( ! $request->is_http_success_code() )
-		{
+		elseif ( ! $request->is_http_success_code() ) {
 			$this->log(
 				$request->get_response_code() . ' ' . $request->get_response_message()
 				. '. Method: ' . $method
@@ -92,8 +91,7 @@ class AW_AgileCRM_API extends AW_Integration
 	 * @param $email
 	 * @return string
 	 */
-	function parse_email( $email )
-	{
+	function parse_email( $email ) {
 		return preg_replace('/\+[^@]*/i' , '', sanitize_email( strtolower( $email ) ) );
 	}
 
@@ -104,8 +102,8 @@ class AW_AgileCRM_API extends AW_Integration
 	 * @param $email
 	 * @return string|false
 	 */
-	function get_contact_id_by_email( $email )
-	{
+	function get_contact_id_by_email( $email ) {
+
 		$email = $this->parse_email( $email );
 
 		if ( $cache = $this->get_contact_id_cache( $email ) )
@@ -133,10 +131,8 @@ class AW_AgileCRM_API extends AW_Integration
 	 * @param $email
 	 * @param $id
 	 */
-	function set_contact_id_cache( $email, $id )
-	{
+	function set_contact_id_cache( $email, $id ) {
 		if ( ! $id ) $id = '204'; // no matching contact
-
 		set_transient( 'aw_agilecrm_contact_id_' . md5( $this->parse_email( $email ) ), $id, DAY_IN_SECONDS * 7 );
 	}
 
@@ -145,8 +141,7 @@ class AW_AgileCRM_API extends AW_Integration
 	 * @param $email
 	 * @return string|false
 	 */
-	function get_contact_id_cache( $email )
-	{
+	function get_contact_id_cache( $email ) {
 		return get_transient( 'aw_agilecrm_contact_id_' . md5( $this->parse_email( $email ) ) );
 	}
 
@@ -154,8 +149,7 @@ class AW_AgileCRM_API extends AW_Integration
 	/**
 	 * @param $email
 	 */
-	function clear_contact_id_cache( $email )
-	{
+	function clear_contact_id_cache( $email ) {
 		delete_transient( 'aw_agilecrm_contact_id_' . md5( $this->parse_email( $email ) ) );
 	}
 
@@ -165,13 +159,11 @@ class AW_AgileCRM_API extends AW_Integration
 	 * @param string $type shipping|billing
 	 * @return array
 	 */
-	function get_address_data_from_order( $order, $type = 'billing' )
-	{
+	function get_address_data_from_order( $order, $type = 'billing' ) {
 		$data = [];
 		$countries = WC()->countries->get_countries();
 
-		switch ( $type )
-		{
+		switch ( $type ) {
 			case 'billing':
 				$states = WC()->countries->get_states( $order->billing_country );
 				$data['address'] = trim( $order->billing_address_1 . ' ' . $order->billing_address_2 );
@@ -197,8 +189,7 @@ class AW_AgileCRM_API extends AW_Integration
 	/**
 	 * @return array
 	 */
-	function get_milestones()
-	{
+	function get_milestones() {
 		if ( $cache = get_transient( 'aw_agilecrm_milestones' ) )
 			return $cache;
 
@@ -210,10 +201,8 @@ class AW_AgileCRM_API extends AW_Integration
 		$body = $response->get_body();
 		$milestones = [];
 
-		if ( is_array( $body ) ) foreach ( $body as $track )
-		{
-			if ( isset( $track['milestones'] ) )
-			{
+		if ( is_array( $body ) ) foreach ( $body as $track ) {
+			if ( isset( $track['milestones'] ) ) {
 				$milestones = array_merge( $milestones, explode( ',', $track['milestones'] ) );
 			}
 		}

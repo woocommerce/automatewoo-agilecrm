@@ -3,8 +3,11 @@
  * @class 		AW_AgileCRM_Settings_Tab
  */
 
-class AW_AgileCRM_Settings_Tab extends AW_Admin_Settings_Tab_Abstract
-{
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+
+class AW_AgileCRM_Settings_Tab extends AW_Admin_Settings_Tab_Abstract {
+
 	/** @var bool */
 	public $show_tab_title = false;
 
@@ -12,18 +15,14 @@ class AW_AgileCRM_Settings_Tab extends AW_Admin_Settings_Tab_Abstract
 	public $prefix = 'aw_agilecrm_';
 
 
-	public function __construct()
-	{
+	public function __construct() {
 		$this->id = 'agilecrm';
 		$this->name = __( 'AgileCRM', 'automatewoo-agilecrm' );
 	}
 
 
-	/**
-	 *
-	 */
-	public function load_settings()
-	{
+	public function load_settings() {
+
 		if ( ! empty( $this->settings ) )
 			return;
 
@@ -55,8 +54,7 @@ class AW_AgileCRM_Settings_Tab extends AW_Admin_Settings_Tab_Abstract
 	/**
 	 * @return array
 	 */
-	public function get_settings()
-	{
+	public function get_settings() {
 		$this->load_settings();
 		return $this->settings;
 	}
@@ -66,11 +64,9 @@ class AW_AgileCRM_Settings_Tab extends AW_Admin_Settings_Tab_Abstract
 	 * @param $id
 	 * @return mixed
 	 */
-	protected function get_default( $id )
-	{
+	protected function get_default( $id ) {
 		return isset( AW_AgileCRM()->options()->defaults[ $id ] ) ? AW_AgileCRM()->options()->defaults[ $id ] : false;
 	}
-
 
 }
 

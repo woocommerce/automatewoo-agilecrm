@@ -1,19 +1,19 @@
 <?php
-
 /**
- * Class AW_Action_AgileCRM_Abstract
+ * @class AW_Action_AgileCRM_Abstract
  */
 
-abstract class AW_Action_AgileCRM_Abstract extends AW_Action
-{
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+
+abstract class AW_Action_AgileCRM_Abstract extends AW_Action {
+
 	/** @var string  */
 	public $group = 'AgileCRM';
 
 
-	function check_requirements()
-	{
-		if ( ! function_exists('curl_init') )
-		{
+	function check_requirements() {
+		if ( ! function_exists('curl_init') ) {
 			$this->warning( __('Server is missing CURL extension required to use the AgileCRM API.', 'automatewoo-agilecrm' ) );
 		}
 	}
@@ -22,8 +22,8 @@ abstract class AW_Action_AgileCRM_Abstract extends AW_Action
 	/**
 	 * @return AW_Field_Text_Input
 	 */
-	function add_contact_email_field()
-	{
+	function add_contact_email_field() {
+
 		$email = ( new AW_Field_Text_Input() )
 			->set_name( 'email' )
 			->set_title( __( 'Contact Email', 'automatewoo-agilecrm' ) )
@@ -36,8 +36,8 @@ abstract class AW_Action_AgileCRM_Abstract extends AW_Action
 	}
 
 
-	function add_tags_field()
-	{
+	function add_tags_field() {
+
 		$tag = ( new AW_Field_Text_Input() )
 			->set_name('tags')
 			->set_title( __( 'Tags', 'automatewoo-agilecrm' ) )

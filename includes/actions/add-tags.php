@@ -5,6 +5,9 @@
  * @since       1.0.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+
 class AW_Action_AgileCRM_Add_Tags extends AW_Action_AgileCRM_Abstract
 {
 	public $name = 'agilecrm_add_tags';

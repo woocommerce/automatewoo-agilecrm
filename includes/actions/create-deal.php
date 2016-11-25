@@ -5,6 +5,9 @@
  * @since       1.2
  */
 
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+
 class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract
 {
 	public $name = 'agilecrm_create_deal';
