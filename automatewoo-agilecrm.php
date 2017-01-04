@@ -4,8 +4,8 @@
  * Plugin URI: http://automatewoo.com
  * Description: AgileCRM Integration add-on for AutomateWoo.
  * Version: 1.2.4
- * Author: Daniel Bitzer
- * Author URI: http://danielbitzer.com
+ * Author: AutomateWoo
+ * Author URI: http://automatewoo.com
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0
  * Text Domain: automatewoo-agilecrm
