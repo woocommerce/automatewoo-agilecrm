@@ -155,7 +155,7 @@ class AW_AgileCRM_API extends AW_Integration {
 
 
 	/**
-	 * @param WC_Order|WC_User $order
+	 * @param WC_Order|WP_User $order
 	 * @param string $type shipping|billing
 	 * @return array
 	 */
