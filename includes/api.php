@@ -106,8 +106,7 @@ class AW_AgileCRM_API extends AW_Integration {
 
 		$email = $this->parse_email( $email );
 
-		if ( $cache = $this->get_contact_id_cache( $email ) )
-		{
+		if ( $cache = $this->get_contact_id_cache( $email ) ) {
 			if ( $cache == '204' ) return false;  // no matching contact
 			return $cache;
 		}
@@ -210,6 +209,35 @@ class AW_AgileCRM_API extends AW_Integration {
 		set_transient( 'aw_agilecrm_milestones', $milestones, MINUTE_IN_SECONDS * 5 );
 
 		return $milestones;
+	}
+
+
+	/**
+	 * @since 1.2.5
+	 * @return array
+	 */
+	function get_users() {
+
+		if ( $cache = get_transient( 'aw_agilecrm_users' ) )
+			return $cache;
+
+		$response = $this->request( 'GET' , '/users' );
+
+		if ( ! $response->is_successful() )
+			return [];
+
+		$body = $response->get_body();
+		$users = [];
+
+		if ( is_array( $body ) ) foreach ( $body as $item ) {
+			if ( isset( $item['id'] ) ) {
+				$users[ $item['id'] ] = $item[ 'name' ] . ' <' . $item[ 'email' ] . '>';
+			}
+		}
+
+		set_transient( 'aw_agilecrm_users', $users, MINUTE_IN_SECONDS * 5 );
+
+		return $users;
 	}
 
 }

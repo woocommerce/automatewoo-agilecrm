@@ -1,32 +1,34 @@
 <?php
-/**
- * @class       AW_Action_AgileCRM_Add_Task
- * @package     AutomateWoo/Addons/AgileCRM
- * @since       1.0.0
- */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * @class AW_Action_AgileCRM_Add_Task
+ * @since 1.0.0
+ */
+class AW_Action_AgileCRM_Add_Task extends AW_Action_AgileCRM_Abstract {
 
-class AW_Action_AgileCRM_Add_Task extends AW_Action_AgileCRM_Abstract
-{
 	public $name = 'agilecrm_add_task';
 
-	/**
-	 * Init
-	 */
-	public function init()
-	{
-		$this->title = __('Add Task To Contact', 'automatewoo-agilecrm');
+
+	public function init() {
+		$this->title = __( 'Add Task To Contact', 'automatewoo-agilecrm' );
+		$this->description = __( 'Please note you must first create the contact in AgileCRM before assigning any tasks to them.', 'automatewoo-agilecrm' );
 		parent::init();
 	}
 
 
-	public function load_fields()
-	{
+	public function load_fields() {
+
 		$name = ( new AW_Field_Text_Input() )
 			->set_name('subject')
 			->set_title( __( 'Task Name', 'automatewoo-agilecrm' ) )
+			->set_required();
+
+		$owner = ( new AW_Field_Select( false ) )
+			->set_name( 'owner' )
+			->set_title( __( 'Task Owner', 'automatewoo-agilecrm' ) )
+			->set_options( AW_AgileCRM()->api()->get_users() )
 			->set_required();
 
 		$type = ( new AW_Field_Select( false ) )
@@ -68,6 +70,7 @@ class AW_Action_AgileCRM_Add_Task extends AW_Action_AgileCRM_Abstract
 
 		$this->add_contact_email_field();
 		$this->add_field( $name );
+		$this->add_field( $owner );
 		$this->add_field( $type );
 		$this->add_field( $priority );
 		$this->add_field( $due );
@@ -78,10 +81,11 @@ class AW_Action_AgileCRM_Add_Task extends AW_Action_AgileCRM_Abstract
 	/**
 	 * @return void
 	 */
-	public function run()
-	{
+	public function run() {
+
 		$email = aw_clean_email( $this->get_option( 'email', true ) );
 		$subject = aw_clean( $this->get_option( 'subject', true ) );
+		$owner = aw_clean( $this->get_option( 'owner' ) );
 		$type = aw_clean( $this->get_option( 'type' ) );
 		$priority = aw_clean( $this->get_option( 'priority' ) );
 		$due = aw_clean( $this->get_option( 'due', true ) );
@@ -92,26 +96,29 @@ class AW_Action_AgileCRM_Add_Task extends AW_Action_AgileCRM_Abstract
 
 		$contact_id = AW_AgileCRM()->api()->get_contact_id_by_email( $email );
 
-		if ( $contact_id )
-		{
-			// convert to gmt timestamp
-
-			if ( ! $due = strtotime( get_gmt_from_date( $due ) ) )
-			{
-				$due = time();
-			}
-
-			// add tags
-			$response = AW_AgileCRM()->api()->request( 'POST', '/tasks', [
-				'contacts' => [ $contact_id ],
-				'subject' => $subject,
-				'type' => $type,
-				'priority' => $priority,
-				'due' => $due,
-				'taskDescription' => $description,
-			]);
+		if ( ! $contact_id ) {
+			return;
 		}
 
+		// convert to gmt timestamp
+		if ( ! $due = strtotime( get_gmt_from_date( $due ) ) ) {
+			$due = time();
+		}
+
+		$data = [
+			'contacts' => [ $contact_id ],
+			'subject' => $subject,
+			'type' => $type,
+			'priority' => $priority,
+			'due' => $due,
+			'taskDescription' => $description,
+		];
+
+		if ( $owner ) {
+			$data['owner_id'] = $owner;
+		}
+
+		$response = AW_AgileCRM()->api()->request( 'POST', '/tasks', $data );
 	}
 
 }
