@@ -1,3 +1,8 @@
+1.2.5 *January 13, 2017*
+---
+* New - Added the **Task Owner** field to the **Add Task To Contact** action allowing new tasks to be assigned to different users in AgileCRM
+
+
 1.2.4 *November 16, 2016*
 ---
 * Tweak - Housekeeping
@@ -20,15 +25,15 @@
 
 1.2.0 *October 14, 2016*
 ---
-* Feature - Add action 'Create Deal'
+* New - Add action **Create Deal**
 
 
 1.1.0 *September 1, 2016*
 ---
-* Feature - Added support for contact address fields
-* Feature - Improved the 'Create New Contact' action so it can also be used to update fields on a contact
+* New - Added support for contact address fields
+* New - Improved the **Create New Contact** action so it can also be used to update fields on a contact
 * Fix - Caching issue with contact IDs
-* Fix - Some fields on the 'Create New Contact' action were not set to be dynamically replaced
+* Fix - Some fields on the **Create New Contact** action were not set to be dynamically replaced
 
 
 1.0.0 *July 27, 2016*
