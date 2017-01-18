@@ -215,7 +215,7 @@ if ( ! class_exists('AW_Abstract_Addon') ):
 
 			AW()->addons()->register( $this );
 
-			if ( AW()->licenses->is_active( $this->id ) ) {
+			if ( AW()->licenses()->is_active( $this->id ) ) {
 				$this->init();
 			}
 		}
