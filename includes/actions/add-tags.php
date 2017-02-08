@@ -8,19 +8,18 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 
-class AW_Action_AgileCRM_Add_Tags extends AW_Action_AgileCRM_Abstract
-{
+class AW_Action_AgileCRM_Add_Tags extends AW_Action_AgileCRM_Abstract {
+
 	public $name = 'agilecrm_add_tags';
 
-	public function init()
-	{
-		$this->title = __('Add Tags To Contact', 'automatewoo-agilecrm');
+	public function init() {
+		$this->title = __( 'Add Tags To Contact', 'automatewoo-agilecrm' );
 		parent::init();
 	}
 
 
-	public function load_fields()
-	{
+	public function load_fields() {
+
 //		$create_user = ( new AW_Field_Checkbox() )
 //			->set_title(__( "Create Contact If Missing", 'automatewoo-agilecrm' ) )
 //			->set_name( 'create_missing_contact' );
@@ -34,11 +33,11 @@ class AW_Action_AgileCRM_Add_Tags extends AW_Action_AgileCRM_Abstract
 	/**
 	 * @return void
 	 */
-	public function run()
-	{
-		$email = aw_clean_email( $this->get_option( 'email', true ) );
+	public function run() {
+
+		$email = AutomateWoo\Clean::email( $this->get_option( 'email', true ) );
 		$tags = aw_clean( $this->get_option( 'tags', true ) );
-		$create_missing_contact = $this->get_option('create_missing_contact');
+//		$create_missing_contact = $this->get_option('create_missing_contact');
 
 		if ( empty( $tags ) || empty( $email ) || ! AW_AgileCRM()->api() )
 			return;
@@ -47,16 +46,15 @@ class AW_Action_AgileCRM_Add_Tags extends AW_Action_AgileCRM_Abstract
 
 		$tags = array_map( 'trim', explode( ',', $tags ) );
 
-		if ( $contact_id )
-		{
+		if ( $contact_id ) {
 			// add tags
 			$response = AW_AgileCRM()->api()->request( 'PUT', '/contacts/edit/tags', [
 				'id' => $contact_id,
 				"tags" => $tags
 			]);
 		}
-		else
-		{
+		else {
+
 //			if ( $create_missing_contact )
 //			{
 //				// create contact from email

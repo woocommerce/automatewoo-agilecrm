@@ -80,7 +80,7 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract {
 	 */
 	public function run() {
 
-		$email = aw_clean_email( $this->get_option( 'email', true ) );
+		$email = AutomateWoo\Clean::email( $this->get_option( 'email', true ) );
 		$first_name = aw_clean( $this->get_option( 'first_name', true ) );
 		$last_name = aw_clean( $this->get_option( 'last_name', true ) );
 		$company = aw_clean( $this->get_option( 'company', true ) );

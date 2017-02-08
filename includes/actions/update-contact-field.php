@@ -38,7 +38,7 @@ class AW_Action_AgileCRM_Update_Contact_Field extends AW_Action_AgileCRM_Abstrac
 	 */
 	public function run() {
 
-		$email = aw_clean_email( $this->get_option( 'email', true ) );
+		$email = AutomateWoo\Clean::email( $this->get_option( 'email', true ) );
 		$field_name = aw_clean( $this->get_option( 'field_name' ) );
 		$field_value = aw_clean( $this->get_option( 'field_value', true ) );
 

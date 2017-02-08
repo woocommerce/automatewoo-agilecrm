@@ -1,29 +1,26 @@
 <?php
-/**
- * @class       AW_Action_AgileCRM_Create_Deal
- * @package     AutomateWoo/Addons/AgileCRM
- * @since       1.2
- */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * @class       AW_Action_AgileCRM_Create_Deal
+ * @since       1.2
+ */
+class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract {
 
-class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract
-{
 	public $name = 'agilecrm_create_deal';
 
 	/**
 	 * Init
 	 */
-	public function init()
-	{
+	function init() {
 		$this->title = __('Create Deal', 'automatewoo-agilecrm');
 		parent::init();
 	}
 
 
-	public function load_fields()
-	{
+	function load_fields() {
+
 		$name = ( new AW_Field_Text_Input() )
 			->set_name('name')
 			->set_title( __( 'Name', 'automatewoo-agilecrm' ) )
@@ -75,13 +72,13 @@ class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract
 	/**
 	 * @return void
 	 */
-	public function run()
-	{
+	function run() {
+
 		$name = aw_clean( $this->get_option( 'name', true ) );
 		$value = aw_clean( $this->get_option( 'value', true ) );
 		$probability = absint( $this->get_option( 'probability', true ) );
 		$milestone = aw_clean( $this->get_option( 'milestone' ) );
-		$contact_email = aw_clean_email( $this->get_option( 'email', true ) );
+		$contact_email = AutomateWoo\Clean::email( $this->get_option( 'email', true ) );
 		$close_date = aw_clean( $this->get_option( 'close_date', true ) );
 		$description = aw_clean( $this->get_option( 'description', true ) );
 
@@ -95,21 +92,17 @@ class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract
 			'milestone' => $milestone
 		];
 
-		if ( $close_date )
-		{
+		if ( $close_date ) {
 			$data['close_date'] = strtotime( get_gmt_from_date( $close_date ) );
 		}
 
-		if ( $contact_email )
-		{
-			if ( $contact_id = AW_AgileCRM()->api()->get_contact_id_by_email( $contact_email ) )
-			{
+		if ( $contact_email ) {
+			if ( $contact_id = AW_AgileCRM()->api()->get_contact_id_by_email( $contact_email ) ) {
 				$data['contact_ids'] = [ $contact_id ];
 			}
 		}
 
-		if ( $description )
-		{
+		if ( $description ) {
 			$data['description'] = $description;
 		}
 

@@ -83,7 +83,7 @@ class AW_Action_AgileCRM_Add_Task extends AW_Action_AgileCRM_Abstract {
 	 */
 	public function run() {
 
-		$email = aw_clean_email( $this->get_option( 'email', true ) );
+		$email = AutomateWoo\Clean::email( $this->get_option( 'email', true ) );
 		$subject = aw_clean( $this->get_option( 'subject', true ) );
 		$owner = aw_clean( $this->get_option( 'owner' ) );
 		$type = aw_clean( $this->get_option( 'type' ) );

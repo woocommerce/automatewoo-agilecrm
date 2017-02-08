@@ -1,31 +1,22 @@
 <?php
-/**
- * @class       AW_Action_AgileCRM_Remove_Tags
- * @package     AutomateWoo/Addons/AgileCRM
- * @since       1.0.0
- */
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+/**
+ * @class AW_Action_AgileCRM_Remove_Tags
+ */
+class AW_Action_AgileCRM_Remove_Tags extends AW_Action_AgileCRM_Abstract {
 
-class AW_Action_AgileCRM_Remove_Tags extends AW_Action_AgileCRM_Abstract
-{
 	public $name = 'agilecrm_remove_tags';
 
-	/**
-	 * Init
-	 */
-	public function init()
-	{
+
+	public function init() {
 		$this->title = __( 'Remove Tags From Contact', 'automatewoo-agilecrm');
 		parent::init();
 	}
 
-	/**
-	 *
-	 */
-	public function load_fields()
-	{
+
+	public function load_fields() {
 		$this->add_contact_email_field();
 		$this->add_tags_field();
 	}
@@ -34,9 +25,9 @@ class AW_Action_AgileCRM_Remove_Tags extends AW_Action_AgileCRM_Abstract
 	/**
 	 * @return void
 	 */
-	public function run()
-	{
-		$email = aw_clean_email( $this->get_option( 'email', true ) );
+	public function run() {
+
+		$email = AutomateWoo\Clean::email( $this->get_option( 'email', true ) );
 		$tags = aw_clean( $this->get_option( 'tags', true ) );
 
 		if ( empty( $tags ) || empty( $email ) || ! AW_AgileCRM()->api() )
@@ -46,8 +37,7 @@ class AW_Action_AgileCRM_Remove_Tags extends AW_Action_AgileCRM_Abstract
 
 		$tags = array_map( 'trim', explode( ',', $tags ) );
 
-		if ( $contact_id )
-		{
+		if ( $contact_id ) {
 			// add tags
 			$response = AW_AgileCRM()->api()->request( 'PUT', '/contacts/delete/tags', [
 				'id' => $contact_id,

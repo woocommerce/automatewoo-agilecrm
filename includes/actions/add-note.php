@@ -8,22 +8,21 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 
-class AW_Action_AgileCRM_Add_Note extends AW_Action_AgileCRM_Abstract
-{
+class AW_Action_AgileCRM_Add_Note extends AW_Action_AgileCRM_Abstract {
+
 	public $name = 'agilecrm_add_note';
 
 	/**
 	 * Init
 	 */
-	public function init()
-	{
+	public function init() {
 		$this->title = __('Add Note To Contact', 'automatewoo-agilecrm');
 		parent::init();
 	}
 
 
-	public function load_fields()
-	{
+	public function load_fields() {
+
 		$subject = ( new AW_Field_Text_Input() )
 			->set_name('subject')
 			->set_title( __( 'Note Subject', 'automatewoo-agilecrm' ) )
@@ -44,9 +43,9 @@ class AW_Action_AgileCRM_Add_Note extends AW_Action_AgileCRM_Abstract
 	/**
 	 * @return void
 	 */
-	public function run()
-	{
-		$email = aw_clean_email( $this->get_option( 'email', true ) );
+	public function run() {
+
+		$email = AutomateWoo\Clean::email( $this->get_option( 'email', true ) );
 		$subject = aw_clean( $this->get_option( 'subject', true ) );
 		$description = aw_clean( $this->get_option( 'description', true ) );
 
@@ -55,8 +54,7 @@ class AW_Action_AgileCRM_Add_Note extends AW_Action_AgileCRM_Abstract
 
 		$contact_id = AW_AgileCRM()->api()->get_contact_id_by_email( $email );
 
-		if ( $contact_id )
-		{
+		if ( $contact_id ) {
 			// add tags
 			$response = AW_AgileCRM()->api()->request( 'POST', '/notes', [
 				'subject' => $subject,
