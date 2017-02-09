@@ -8,8 +8,11 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 abstract class AW_Action_AgileCRM_Abstract extends AW_Action {
 
-	/** @var string  */
-	public $group = 'AgileCRM';
+
+	function init() {
+		$this->group = __( 'AgileCRM', 'automatewoo-agilecrm' );
+		parent::init();
+	}
 
 
 	function check_requirements() {

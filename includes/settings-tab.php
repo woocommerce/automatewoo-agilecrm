@@ -6,7 +6,7 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 
-class AW_AgileCRM_Settings_Tab extends AW_Admin_Settings_Tab_Abstract {
+class AW_AgileCRM_Settings_Tab extends AutomateWoo\Admin_Settings_Tab_Abstract {
 
 	/** @var bool */
 	public $show_tab_title = false;
