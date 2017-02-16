@@ -2,7 +2,6 @@
 /**
  * @class AW_AgileCRM_Admin
  */
-
 class AW_AgileCRM_Admin {
 
 

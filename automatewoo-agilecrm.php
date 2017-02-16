@@ -43,7 +43,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon {
 	/** @var AW_AgileCRM_Admin */
 	public $admin;
 
-	/** @var AW_AgileCRM_API */
+	/** @var AutomateWoo\AgileCRM\API */
 	private $api;
 
 	/** @var string */
@@ -122,7 +122,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon {
 
 
 	/**
-	 * @return AW_AgileCRM_API
+	 * @return AutomateWoo\AgileCRM\API
 	 */
 	public function api() {
 		if ( ! isset( $this->api ) ) {
@@ -133,7 +133,7 @@ class AW_AgileCRM_Addon extends AW_Abstract_Addon {
 			$api_key = esc_attr( $this->options()->api_key );
 
 			if ( $api_domain && $api_email && $api_key ) {
-				$this->api = new AW_AgileCRM_API( $api_domain, $api_email, $api_key );
+				$this->api = new AutomateWoo\AgileCRM\API( $api_domain, $api_email, $api_key );
 			}
 			else {
 				$this->api = false;

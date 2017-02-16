@@ -1,14 +1,18 @@
 <?php
-/**
- * @class 		AW_AgileCRM_API
- * @package		AutomateWoo/Add-ons/AgileCRM
- * @since		2.3
- */
+
+namespace AutomateWoo\AgileCRM;
+
+use AutomateWoo\Compat;
+use AutomateWoo\Integration;
+use AutomateWoo\Remote_Request;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-
-class AW_AgileCRM_API extends AW_Integration {
+/**
+ * @class API
+ * @since 2.3
+ */
+class API extends Integration {
 
 	/** @var string */
 	public $integration_id = 'agilecrm';
@@ -42,7 +46,7 @@ class AW_AgileCRM_API extends AW_Integration {
 	 * @param $endpoint
 	 * @param $args
 	 *
-	 * @return AW_Remote_Request
+	 * @return Remote_Request
 	 */
 	function request( $method, $endpoint, $args = [] ) {
 
@@ -69,7 +73,7 @@ class AW_AgileCRM_API extends AW_Integration {
 				break;
 		}
 
-		$request = new AW_Remote_Request( $url, $request_args );
+		$request = new Remote_Request( $url, $request_args );
 
 		if ( $request->is_failed() ) {
 			$this->log( $request->get_error_message() );
@@ -154,31 +158,32 @@ class AW_AgileCRM_API extends AW_Integration {
 
 
 	/**
-	 * @param WC_Order|WP_User $order
+	 * @param \WC_Order|\WP_User $order
 	 * @param string $type shipping|billing
 	 * @return array
 	 */
 	function get_address_data_from_order( $order, $type = 'billing' ) {
+
 		$data = [];
 		$countries = WC()->countries->get_countries();
 
 		switch ( $type ) {
 			case 'billing':
-				$states = WC()->countries->get_states( $order->billing_country );
-				$data['address'] = trim( $order->billing_address_1 . ' ' . $order->billing_address_2 );
-				$data['city'] = $order->billing_city;
-				$data['zip'] = $order->billing_postcode;
-				$data['state'] = isset( $states[$order->billing_state] ) ? $states[$order->billing_state] : '';
-				$data['country'] = isset( $countries[$order->billing_country] ) ? $countries[$order->billing_country] : '';
+				$states = WC()->countries->get_states( Compat\Order::get_billing_country( $order ) );
+				$data['address'] = trim( Compat\Order::get_billing_address_1( $order ) . ' ' . Compat\Order::get_billing_address_2( $order ) );
+				$data['city'] = Compat\Order::get_billing_city( $order );
+				$data['zip'] = Compat\Order::get_billing_postcode( $order );
+				$data['state'] = isset( $states[ Compat\Order::get_billing_state( $order ) ] ) ? $states[ Compat\Order::get_billing_state( $order ) ] : '';
+				$data['country'] = isset( $countries[ Compat\Order::get_billing_country( $order ) ] ) ? $countries[ Compat\Order::get_billing_country( $order ) ] : '';
 				break;
 
 			case 'shipping':
-				$states = WC()->countries->get_states( $order->shipping_country );
-				$data['address'] = trim( $order->shipping_address_1 . ' ' . $order->shipping_address_2 );
-				$data['city'] = $order->shipping_city;
-				$data['zip'] = $order->shipping_postcode;
-				$data['state'] = isset( $states[$order->shipping_state] ) ? $states[$order->shipping_state] : '';
-				$data['country'] = isset( $countries[$order->shipping_country] ) ? $countries[$order->shipping_country] : '';
+				$states = WC()->countries->get_states( Compat\Order::get_shipping_country( $order ) );
+				$data['address'] = trim( Compat\Order::get_shipping_address_1( $order ) . ' ' . Compat\Order::get_shipping_address_2( $order ) );
+				$data['city'] = Compat\Order::get_shipping_city( $order );
+				$data['zip'] = Compat\Order::get_shipping_postcode( $order );
+				$data['state'] = isset( $states[ Compat\Order::get_shipping_state( $order ) ] ) ? $states[ Compat\Order::get_shipping_state( $order ) ] : '';
+				$data['country'] = isset( $countries[ Compat\Order::get_shipping_country( $order ) ] ) ? $countries[ Compat\Order::get_shipping_country( $order ) ] : '';
 				break;
 		}
 		return $data;

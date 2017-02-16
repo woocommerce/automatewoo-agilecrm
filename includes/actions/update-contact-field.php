@@ -49,13 +49,13 @@ class AW_Action_AgileCRM_Update_Contact_Field extends AW_Action_AgileCRM_Abstrac
 
 		if ( $contact_id ) {
 			// add tags
-			$response = AW_AgileCRM()->api()->request( 'PUT', '/contacts/edit-properties', [
+			AW_AgileCRM()->api()->request( 'PUT', '/contacts/edit-properties', [
 				'id' => $contact_id,
 				'properties' => [
 					[
 						'type' => 'CUSTOM',
 						'name' => $field_name,
-						'value' => html_entity_decode( $field_value )
+						'value' => $field_value
 					]
 				],
 			]);

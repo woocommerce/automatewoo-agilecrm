@@ -3,8 +3,8 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * @class       AW_Action_AgileCRM_Create_Deal
- * @since       1.2
+ * @class AW_Action_AgileCRM_Create_Deal
+ * @since 1.2
  */
 class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract {
 

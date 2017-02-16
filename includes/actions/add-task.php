@@ -4,7 +4,6 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
  * @class AW_Action_AgileCRM_Add_Task
- * @since 1.0.0
  */
 class AW_Action_AgileCRM_Add_Task extends AW_Action_AgileCRM_Abstract {
 

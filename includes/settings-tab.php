@@ -1,6 +1,6 @@
 <?php
 /**
- * @class 		AW_AgileCRM_Settings_Tab
+ * @class AW_AgileCRM_Settings_Tab
  */
 
 if ( ! defined( 'ABSPATH' ) ) exit;

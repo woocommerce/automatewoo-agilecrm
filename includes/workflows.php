@@ -2,9 +2,7 @@
 /**
  * Set up and custom triggers or actions
  *
- * @class 		AW_AgileCRM_Workflows
- * @package		AutomateWoo/Add-ons/AgileCRM
- * @since		1.0.0
+ * @class AW_AgileCRM_Workflows
  */
 
 class AW_AgileCRM_Workflows {
