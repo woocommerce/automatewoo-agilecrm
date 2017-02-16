@@ -1,4 +1,7 @@
 <?php
+
+if ( ! defined( 'ABSPATH' ) ) exit;
+
 /**
  * @class AW_AgileCRM_Options
  *
@@ -6,11 +9,7 @@
  * @property string $api_email
  * @property string $api_key
  */
-
-if ( ! defined( 'ABSPATH' ) ) exit;
-
-
-class AW_AgileCRM_Options extends AW_Options_API {
+class AW_AgileCRM_Options extends AutomateWoo\Options_API {
 
 	/** @var string */
 	public $prefix = 'aw_agilecrm_';

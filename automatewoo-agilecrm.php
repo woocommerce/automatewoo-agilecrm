@@ -26,157 +26,116 @@
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-include 'addon-includes/abstract-addon.php';
 
-
-class AW_AgileCRM_Addon extends AW_Abstract_Addon {
-
-	/** @var string  */
-	public $id = 'automatewoo-agilecrm';
-
-	/** @var string  */
-	public $version = '1.2.5';
-
-	/** @var AW_AgileCRM_Options */
-	private $options;
-
-	/** @var AW_AgileCRM_Admin */
-	public $admin;
-
-	/** @var AutomateWoo\AgileCRM\API */
-	private $api;
-
-	/** @var string */
-	public $required_automatewoo_version = '2.9';
-
-	/** @var string  */
-	public $required_woocommerce_version = '2.6';
-
-	/**
-	 * Constructor
-	 */
-	public function __construct() {
-
-		$this->name = __( 'AutomateWoo - AgileCRM Add-on', 'automatewoo-agilecrm' );
-
-		$this->plugin_basename = plugin_basename( __FILE__ );
-		list ( $this->plugin_slug, $this->plugin_main_file ) = explode( '/', $this->plugin_basename );
-		$this->plugin_path = dirname( __FILE__ );
-
-		$this->load_plugin_textdomain();
-
-		parent::__construct();
-	}
-
-
-	/**
-	 * Initiate
-	 */
-	public function init() {
-
-		$this->includes();
-
-		new AW_AgileCRM_Workflows();
-
-		if ( is_admin() ) {
-			$this->admin = new AW_AgileCRM_Admin();
-		}
-
-		do_action( 'automatewoo/agilecrm/after_init' );
-	}
-
-
-	/**
-	 * Includes
-	 */
-	public function includes() {
-		
-		include_once $this->path( '/includes/workflows.php' );
-
-		if ( is_admin() ) {
-			include_once $this->path( '/includes/admin.php' );
-		}
-	}
-
-
-	/**
-	 *
-	 */
-	public function load_plugin_textdomain() {
-		load_plugin_textdomain( 'automatewoo-agilecrm', false, "automatewoo-agilecrm/languages" );
-	}
-
-
-
-	/**
-	 * @return AW_AgileCRM_Options
-	 */
-	public function options() {
-		if ( ! isset( $this->options ) ) {
-			include_once $this->path( '/includes/options.php' );
-			$this->options = new AW_AgileCRM_Options();
-		}
-
-		return $this->options;
-	}
-
-
-	/**
-	 * @return AutomateWoo\AgileCRM\API
-	 */
-	public function api() {
-		if ( ! isset( $this->api ) ) {
-			include_once $this->path( '/includes/api.php' );
-
-			$api_domain = esc_attr( $this->options()->api_domain );
-			$api_email = esc_attr( $this->options()->api_email );
-			$api_key = esc_attr( $this->options()->api_key );
-
-			if ( $api_domain && $api_email && $api_key ) {
-				$this->api = new AutomateWoo\AgileCRM\API( $api_domain, $api_email, $api_key );
-			}
-			else {
-				$this->api = false;
-			}
-		}
-
-		return $this->api;
-	}
-
-
-
-	/**
-	 * @return string
-	 */
-	public function admin_start_url() {
-		return admin_url( 'admin.php?page=automatewoo-settings&tab=agilecrm' );
-	}
-
-
-
-	/**
-	 * @var AW_AgileCRM_Addon
-	 */
-	protected static $_instance = null;
-
-
-	/**
-	 * @return AW_AgileCRM_Addon - Main instance
-	 */
-	public static function instance() {
-		if ( is_null( self::$_instance ) ) {
-			self::$_instance = new self();
-		}
-		return self::$_instance;
-	}
-
-}
+load_plugin_textdomain( 'automatewoo-agilecrm', false, "automatewoo-agilecrm/languages" );
 
 
 /**
- * Returns the main instance
+ * @class AW_AgileCRM_Plugin_Data
  */
-function AW_AgileCRM() {
-	return AW_AgileCRM_Addon::instance();
+class AW_AgileCRM_Plugin_Data {
+
+	function __construct() {
+		$this->id = 'automatewoo-agilecrm';
+		$this->name = __( 'AutomateWoo - AgileCRM Add-on', 'automatewoo-agilecrm' );
+		$this->version = '1.2.5';
+		$this->file = __FILE__;
+		$this->min_php_version = '5.4';
+		$this->min_automatewoo_version = '2.9';
+		$this->min_woocommerce_version = '2.6';
+	}
 }
-AW_AgileCRM();
+
+
+
+/**
+ * @class AW_AgileCRM_Loader
+ */
+class AW_AgileCRM_Loader {
+
+	/** @var AW_AgileCRM_Plugin_Data */
+	static $data;
+
+	static $errors = [];
+
+
+	/**
+	 * @param AW_AgileCRM_Plugin_Data $data
+	 */
+	static function init( $data ) {
+		self::$data = $data;
+
+		add_action( 'admin_notices', array( __CLASS__, 'admin_notices' ) );
+		add_action( 'plugins_loaded', array( __CLASS__, 'load' ) );
+	}
+
+
+	static function load() {
+		self::check();
+		if ( empty( self::$errors ) ) {
+			include 'includes/automatewoo-agilecrm.php';
+		}
+	}
+
+
+
+	/**
+	 * @return bool
+	 */
+	static function check() {
+
+		if ( version_compare( phpversion(), self::$data->min_php_version, '<' ) ) {
+			self::$errors[] = sprintf( __( '<strong>%s</strong> requires PHP version %s+.' , 'automatewoo-agilecrm' ), self::$data->name, self::$data->min_php_version );
+		}
+
+		if ( ! self::is_automatewoo_active() ) {
+			self::$errors[] = sprintf( __( '<strong>%s</strong> requires AutomateWoo to be installed and activated.' , 'automatewoo-agilecrm' ), self::$data->name );
+		}
+		elseif ( ! self::is_automatewoo_version_ok() ) {
+			self::$errors[] = sprintf(__( '<strong>%s</strong> requires AutomateWoo version %s or later. Please update to the latest version.', 'automatewoo-agilecrm' ), self::$data->name, self::$data->min_automatewoo_version );
+		}
+
+		if ( ! self::is_woocommerce_version_ok() ) {
+			self::$errors[] = sprintf(__( '<strong>%s</strong> requires WooCommerce version %s or later.', 'automatewoo-agilecrm' ), self::$data->name, self::$data->min_woocommerce_version );
+		}
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	static function is_automatewoo_active() {
+		return function_exists( 'AW' );
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	static function is_automatewoo_version_ok() {
+		if ( ! function_exists( 'AW' ) ) return false;
+		return version_compare( AW()->version, self::$data->min_automatewoo_version, '>=' );
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	static function is_woocommerce_version_ok() {
+		if ( ! function_exists( 'WC' ) ) return false;
+		if ( ! self::$data->min_woocommerce_version ) return true;
+		return version_compare( WC()->version, self::$data->min_woocommerce_version, '>=' );
+	}
+
+
+	static function admin_notices() {
+		if ( empty( self::$errors ) ) return;
+		echo '<div class="notice notice-warning"><p>';
+		echo implode( '<br>', self::$errors );
+		echo '</p></div>';
+	}
+
+
+}
+
+AW_AgileCRM_Loader::init( new AW_AgileCRM_Plugin_Data() );
