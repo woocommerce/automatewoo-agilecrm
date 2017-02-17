@@ -109,7 +109,7 @@ class AW_AgileCRM_Addon extends AutomateWoo\Addon {
 
 
 /**
- * Returns the main instance
+ * @return AW_AgileCRM_Addon
  */
 function AW_AgileCRM() {
 	return AW_AgileCRM_Addon::instance( new AW_AgileCRM_Plugin_Data() );
