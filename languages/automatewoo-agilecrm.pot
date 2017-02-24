@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: AutomateWoo - AgileCRM Add-on\n"
-"POT-Creation-Date: 2016-10-28 11:27+1030\n"
+"POT-Creation-Date: 2017-02-25 09:15+1030\n"
 "PO-Revision-Date: 2016-07-28 13:13+0930\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -20,56 +20,65 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: addon-includes/abstract-addon.php:131
+#. Plugin Name of the plugin/theme
+#: automatewoo-agilecrm.php:40
+msgid "AutomateWoo - AgileCRM Add-on"
+msgstr ""
+
+#: automatewoo-agilecrm.php:88
+#, php-format
+msgid "<strong>%s</strong> requires PHP version %s+."
+msgstr ""
+
+#: automatewoo-agilecrm.php:92
 #, php-format
 msgid "<strong>%s</strong> requires AutomateWoo to be installed and activated."
 msgstr ""
 
-#: addon-includes/abstract-addon.php:136
+#: automatewoo-agilecrm.php:95
 #, php-format
 msgid ""
 "<strong>%s</strong> requires AutomateWoo version %s or later. Please update "
 "to the latest version."
 msgstr ""
 
-#: addon-includes/abstract-addon.php:142
+#: automatewoo-agilecrm.php:99
 #, php-format
 msgid "<strong>%s</strong> requires WooCommerce version %s or later."
 msgstr ""
 
-#. Plugin Name of the plugin/theme
-#: automatewoo-agilecrm.php:60
-msgid "AutomateWoo - AgileCRM Add-on"
+#: includes/actions/abstract.php:13 includes/settings-tab.php:20
+msgid "AgileCRM"
 msgstr ""
 
-#: includes/actions/abstract.php:17
+#: includes/actions/abstract.php:20
 msgid "Server is missing CURL extension required to use the AgileCRM API."
 msgstr ""
 
-#: includes/actions/abstract.php:29
+#: includes/actions/abstract.php:32
 msgid "Contact Email"
 msgstr ""
 
-#: includes/actions/abstract.php:31
+#: includes/actions/abstract.php:34
 msgid ""
 "You can use variables such as {{ user.email }} or {{ guest.email }} here."
 msgstr ""
 
-#: includes/actions/abstract.php:43
+#: includes/actions/abstract.php:46
 msgid "Tags"
 msgstr ""
 
-#: includes/actions/abstract.php:44
+#: includes/actions/abstract.php:47
 msgid ""
 "Add multiple tags separated by commas. Please note that tags are case-"
 "sensitive."
 msgstr ""
 
-#: includes/actions/add-contact.php:17
+#: includes/actions/add-contact.php:14
 msgid "Create / Update Contact"
 msgstr ""
 
-#: includes/actions/add-contact.php:18
+#: includes/actions/add-contact.php:15
 msgid ""
 "This trigger can be used to create or update contacts in AgileCRM. If an "
 "existing contact is found by email then an update will occur otherwise a new "
@@ -78,79 +87,89 @@ msgid ""
 "address and enter an email, all other fields can be left blank."
 msgstr ""
 
-#: includes/actions/add-contact.php:27
+#: includes/actions/add-contact.php:24
 msgid "First Name"
 msgstr ""
 
-#: includes/actions/add-contact.php:31
+#: includes/actions/add-contact.php:28
 msgid "Last Name"
 msgstr ""
 
-#: includes/actions/add-contact.php:35
+#: includes/actions/add-contact.php:32
 msgid "Company"
 msgstr ""
 
-#: includes/actions/add-contact.php:39
+#: includes/actions/add-contact.php:36
 msgid "Title"
 msgstr ""
 
-#: includes/actions/add-contact.php:42
+#: includes/actions/add-contact.php:39
 msgid "Billing Address"
 msgstr ""
 
-#: includes/actions/add-contact.php:43
+#: includes/actions/add-contact.php:40
 msgid "Shipping Address"
 msgstr ""
 
-#: includes/actions/add-contact.php:49
+#: includes/actions/add-contact.php:46
 msgid "Address"
 msgstr ""
 
-#: includes/actions/add-contact.php:53
+#: includes/actions/add-contact.php:50
 msgid "Star Value"
 msgstr ""
 
-#: includes/actions/add-contact.php:59
+#: includes/actions/add-contact.php:56
 msgid "Lead Score"
 msgstr ""
 
-#: includes/actions/add-note.php:17
+#: includes/actions/add-note.php:19
 msgid "Add Note To Contact"
 msgstr ""
 
-#: includes/actions/add-note.php:26
+#: includes/actions/add-note.php:28
 msgid "Note Subject"
 msgstr ""
 
-#: includes/actions/add-note.php:31
+#: includes/actions/add-note.php:33
 msgid "Note Description"
 msgstr ""
 
-#: includes/actions/add-tags.php:14
+#: includes/actions/add-tags.php:13
 msgid "Add Tags To Contact"
 msgstr ""
 
-#: includes/actions/add-task.php:17
+#: includes/actions/add-task.php:14
 msgid "Add Task To Contact"
 msgstr ""
 
-#: includes/actions/add-task.php:26
+#: includes/actions/add-task.php:15
+msgid ""
+"Please note you must first create the contact in AgileCRM before assigning "
+"any tasks to them."
+msgstr ""
+
+#: includes/actions/add-task.php:24
 msgid "Task Name"
 msgstr ""
 
-#: includes/actions/add-task.php:31
+#: includes/actions/add-task.php:29
+msgid "Task Owner"
+msgstr ""
+
+#: includes/actions/add-task.php:35
 msgid "Task Type"
 msgstr ""
 
-#: includes/actions/add-task.php:46
+#: includes/actions/add-task.php:50
 msgid "Priority"
 msgstr ""
 
-#: includes/actions/add-task.php:57
+#: includes/actions/add-task.php:61
 msgid "Due"
 msgstr ""
 
-#: includes/actions/add-task.php:63 includes/actions/create-deal.php:57
+#: includes/actions/add-task.php:67 includes/actions/create-deal.php:57
 msgid "Description"
 msgstr ""
 
@@ -184,53 +203,50 @@ msgid ""
 "them."
 msgstr ""
 
-#: includes/actions/remove-tags.php:17
+#: includes/actions/remove-tags.php:14
 msgid "Remove Tags From Contact"
 msgstr ""
 
-#: includes/actions/update-contact-field.php:17
+#: includes/actions/update-contact-field.php:15
 msgid "Update Contact Custom Field"
 msgstr ""
 
-#: includes/actions/update-contact-field.php:26
+#: includes/actions/update-contact-field.php:23
 msgid "Custom Field Name"
 msgstr ""
 
-#: includes/actions/update-contact-field.php:31
+#: includes/actions/update-contact-field.php:28
 msgid "Custom Field Value"
 msgstr ""
 
-#: includes/settings-tab.php:18
-msgid "AgileCRM"
-msgstr ""
-
-#: includes/settings-tab.php:30
+#: includes/settings-tab.php:29
 msgid "AgileCRM API Details"
 msgstr ""
 
-#: includes/settings-tab.php:33
+#: includes/settings-tab.php:32
 msgid "Account Domain"
 msgstr ""
 
-#: includes/settings-tab.php:40
+#: includes/settings-tab.php:39
 msgid "Account Email"
 msgstr ""
 
-#: includes/settings-tab.php:42
+#: includes/settings-tab.php:41
 msgid "The email address you use to sign in to AgileCRM."
 msgstr ""
 
-#: includes/settings-tab.php:46
+#: includes/settings-tab.php:45
 msgid "API Key"
 msgstr ""
 
-#: includes/settings-tab.php:48
+#: includes/settings-tab.php:47
 msgid ""
 "Locate your AgileCRM API Key from Admin Settings -> API & Analytics -> REST "
 "API."
 msgstr ""
 
 #. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
 msgid "http://automatewoo.com"
 msgstr ""
 
@@ -239,9 +255,5 @@ msgid "AgileCRM Integration add-on for AutomateWoo."
 msgstr ""
 
 #. Author of the plugin/theme
-msgid "Daniel Bitzer"
-msgstr ""
-
-#. Author URI of the plugin/theme
-msgid "http://danielbitzer.com"
+msgid "AutomateWoo"
 msgstr ""

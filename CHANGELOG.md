@@ -1,3 +1,8 @@
+1.3.0 *February 25, 2017*
+---
+* New - Implement changes from AutomateWoo core
+
+
 1.2.5 *January 13, 2017*
 ---
 * New - Added the **Task Owner** field to the **Add Task To Contact** action allowing new tasks to be assigned to different users in AgileCRM
