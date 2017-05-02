@@ -56,7 +56,7 @@ class AW_AgileCRM_Loader {
 	/** @var AW_AgileCRM_Plugin_Data */
 	static $data;
 
-	static $errors = [];
+	static $errors = array();
 
 
 	/**
