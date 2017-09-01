@@ -94,6 +94,9 @@ class AW_AgileCRM_Loader {
 		elseif ( ! self::is_automatewoo_version_ok() ) {
 			self::$errors[] = sprintf(__( '<strong>%s</strong> requires AutomateWoo version %s or later. Please update to the latest version.', 'automatewoo-agilecrm' ), self::$data->name, self::$data->min_automatewoo_version );
 		}
+		elseif ( ! self::is_automatewoo_directory_name_ok() ) {
+			self::$errors[] = sprintf(__( '<strong>%s</strong> - AutomateWoo plugin directory name is not correct.', 'automatewoo-agilecrm' ), self::$data->name );
+		}
 
 		if ( ! self::is_woocommerce_version_ok() ) {
 			self::$errors[] = sprintf(__( '<strong>%s</strong> requires WooCommerce version %s or later.', 'automatewoo-agilecrm' ), self::$data->name, self::$data->min_woocommerce_version );
@@ -125,6 +128,15 @@ class AW_AgileCRM_Loader {
 		if ( ! function_exists( 'WC' ) ) return false;
 		if ( ! self::$data->min_woocommerce_version ) return true;
 		return version_compare( WC()->version, self::$data->min_woocommerce_version, '>=' );
+	}
+
+
+	/**
+	 * @return bool
+	 */
+	static function is_automatewoo_directory_name_ok() {
+		$active_plugins = (array) get_option( 'active_plugins', [] );
+		return in_array( 'automatewoo/automatewoo.php', $active_plugins ) || array_key_exists( 'automatewoo/automatewoo.php', $active_plugins );
 	}
 
 
