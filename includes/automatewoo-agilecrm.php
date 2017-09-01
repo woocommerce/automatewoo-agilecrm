@@ -93,14 +93,6 @@ class AW_AgileCRM_Addon extends AutomateWoo\Addon {
 	}
 
 
-	/**
-	 * @return string
-	 */
-	public function admin_start_url() {
-		return admin_url( 'admin.php?page=automatewoo-settings&tab=agilecrm' );
-	}
-
-
 	/** @var AW_AgileCRM_Addon */
 	protected static $_instance;
 
