@@ -4,7 +4,6 @@
  *
  * @class AW_AgileCRM_Workflows
  */
-
 class AW_AgileCRM_Workflows {
 
 

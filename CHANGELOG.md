@@ -1,3 +1,8 @@
+1.4.0 *January 17, 2017*
+---
+* Tweak - Compatibility updates with AutomateWoo core
+
+
 1.3.1 *May 2, 2017*
 ---
 * Tweak - Improve degradation of PHP versions earlier than 5.4 
