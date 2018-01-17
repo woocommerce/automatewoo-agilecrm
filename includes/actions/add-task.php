@@ -56,7 +56,7 @@ class Action_AgileCRM_Add_Task extends Action_AgileCRM_Abstract {
 			])
 			->set_required();
 
-		$due = ( new Fields\Select() )
+		$due = ( new Fields\Text() )
 			->set_name('due')
 			->set_title( __( 'Due', 'automatewoo-agilecrm' ) )
 			->set_placeholder('e.g. {{ shop.current_datetime | modify : +1 day }}')

@@ -41,7 +41,7 @@ class AW_AgileCRM_Plugin_Data {
 		$this->version = '1.3.1';
 		$this->file = __FILE__;
 		$this->min_php_version = '5.4';
-		$this->min_automatewoo_version = '2.9';
+		$this->min_automatewoo_version = '3.3.0';
 		$this->min_woocommerce_version = '2.6';
 	}
 }
@@ -79,9 +79,6 @@ class AW_AgileCRM_Loader {
 
 
 
-	/**
-	 * @return bool
-	 */
 	static function check() {
 
 		if ( version_compare( phpversion(), self::$data->min_php_version, '<' ) ) {

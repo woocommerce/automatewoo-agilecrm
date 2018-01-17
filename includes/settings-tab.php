@@ -1,12 +1,16 @@
 <?php
-/**
- * @class AW_AgileCRM_Settings_Tab
- */
+
+namespace AutomateWoo\AgileCRM;
+
+use AutomateWoo\Admin_Settings_Tab_Abstract;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 
-class AW_AgileCRM_Settings_Tab extends AutomateWoo\Admin_Settings_Tab_Abstract {
+/**
+ * @class AW_AgileCRM_Settings_Tab
+ */
+class Settings_Tab extends Admin_Settings_Tab_Abstract {
 
 	/** @var bool */
 	public $show_tab_title = false;
@@ -70,4 +74,4 @@ class AW_AgileCRM_Settings_Tab extends AutomateWoo\Admin_Settings_Tab_Abstract {
 
 }
 
-return new AW_AgileCRM_Settings_Tab();
+return new Settings_Tab();
