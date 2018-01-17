@@ -1,18 +1,16 @@
 <?php
 
+namespace AutomateWoo;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * @class AW_Action_AgileCRM_Create_Deal
+ * @class Action_AgileCRM_Create_Deal
  * @since 1.2
  */
-class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract {
+class Action_AgileCRM_Create_Deal extends Action_AgileCRM_Abstract {
 
-	public $name = 'agilecrm_create_deal';
 
-	/**
-	 * Init
-	 */
 	function init() {
 		$this->title = __('Create Deal', 'automatewoo-agilecrm');
 		parent::init();
@@ -21,24 +19,24 @@ class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract {
 
 	function load_fields() {
 
-		$name = ( new AW_Field_Text_Input() )
+		$name = ( new Fields\Text() )
 			->set_name('name')
 			->set_title( __( 'Name', 'automatewoo-agilecrm' ) )
 			->set_required();
 
-		$value = ( new AW_Field_Text_Input() )
+		$value = ( new Fields\Text() )
 			->set_name('value')
 			->set_title( __( 'Value', 'automatewoo-agilecrm' ) )
 			->set_required();
 
-		$probability = ( new AW_Field_Number_Input() )
+		$probability = ( new Fields\Number() )
 			->set_name('probability')
 			->set_title( __( 'Probability (%)', 'automatewoo-agilecrm' ) )
 			->set_min( 0 )
 			->set_max( 100 )
 			->set_required();
 
-		$milestone = ( new AW_Field_Select( false ) )
+		$milestone = ( new Fields\Select( false ) )
 			->set_name( 'milestone' )
 			->set_title( __( 'Milestone', 'automatewoo-agilecrm' ) )
 			->set_options( array_combine(
@@ -47,12 +45,12 @@ class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract {
 			) )
 			->set_required();
 
-		$close_date = ( new AW_Field_Text_Input() )
+		$close_date = ( new Fields\Text() )
 			->set_name('close_date')
 			->set_title( __( 'Close Date', 'automatewoo-agilecrm' ) )
 			->set_description('e.g. {{ shop.current_datetime | modify : +1 week }}');
 
-		$description = ( new AW_Field_Text_Area() )
+		$description = ( new Fields\Text_Area() )
 			->set_name( 'description' )
 			->set_title( __( 'Description', 'automatewoo-agilecrm' ) )
 			->set_rows( 3 );
@@ -69,18 +67,15 @@ class AW_Action_AgileCRM_Create_Deal extends AW_Action_AgileCRM_Abstract {
 	}
 
 
-	/**
-	 * @return void
-	 */
 	function run() {
 
-		$name = aw_clean( $this->get_option( 'name', true ) );
-		$value = aw_clean( $this->get_option( 'value', true ) );
+		$name = Clean::string( $this->get_option( 'name', true ) );
+		$value = Clean::string( $this->get_option( 'value', true ) );
 		$probability = absint( $this->get_option( 'probability', true ) );
-		$milestone = aw_clean( $this->get_option( 'milestone' ) );
-		$contact_email = AutomateWoo\Clean::email( $this->get_option( 'email', true ) );
-		$close_date = aw_clean( $this->get_option( 'close_date', true ) );
-		$description = aw_clean( $this->get_option( 'description', true ) );
+		$milestone = Clean::string( $this->get_option( 'milestone' ) );
+		$contact_email = Clean::email( $this->get_option( 'email', true ) );
+		$close_date = Clean::string( $this->get_option( 'close_date', true ) );
+		$description = Clean::textarea( $this->get_option( 'description', true ) );
 
 		if ( empty( $name ) || empty( $value ) || empty( $milestone ) || empty( $name ) || ! AW_AgileCRM()->api() )
 			return;

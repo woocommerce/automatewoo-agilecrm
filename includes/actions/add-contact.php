@@ -1,13 +1,13 @@
 <?php
 
+namespace AutomateWoo;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * @class AW_Action_AgileCRM_Add_Contact
+ * @class Action_AgileCRM_Add_Contact
  */
-class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract {
-
-	public $name = 'agilecrm_add_contact';
+class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 
 
 	public function init() {
@@ -19,19 +19,19 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract {
 
 	public function load_fields() {
 
-		$first_name = ( new AW_Field_Text_Input() )
+		$first_name = ( new Fields\Text() )
 			->set_name( 'first_name' )
 			->set_title( __( 'First Name', 'automatewoo-agilecrm' ) );
 
-		$last_name = ( new AW_Field_Text_Input() )
+		$last_name = ( new Fields\Text() )
 			->set_name( 'last_name' )
 			->set_title( __( 'Last Name', 'automatewoo-agilecrm' ) );
 
-		$company = ( new AW_Field_Text_Input() )
+		$company = ( new Fields\Text() )
 			->set_name( 'company' )
 			->set_title( __( 'Company', 'automatewoo-agilecrm' ) );
 
-		$title = ( new AW_Field_Text_Input() )
+		$title = ( new Fields\Text() )
 			->set_name( 'title' )
 			->set_title( __( 'Title', 'automatewoo-agilecrm' ) );
 
@@ -40,18 +40,18 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract {
 			'shipping' => __( 'Shipping Address', 'automatewoo-agilecrm' ),
 		];
 
-		$address = ( new AW_Field_Select() )
+		$address = ( new Fields\Select() )
 			->set_name( 'address' )
 			->set_options( $address_choices )
 			->set_title( __( 'Address', 'automatewoo-agilecrm' ) );
 
-		$star_value = ( new AW_Field_Number_Input() )
+		$star_value = ( new Fields\Number() )
 			->set_name('star_value')
 			->set_title( __( 'Star Value', 'automatewoo-agilecrm' ) )
 			->set_min(0)
 			->set_max(5);
 
-		$lead_score = ( new AW_Field_Number_Input() )
+		$lead_score = ( new Fields\Number() )
 			->set_name('lead_score')
 			->set_title( __( 'Lead Score', 'automatewoo-agilecrm' ) )
 			->set_min(0);
@@ -66,27 +66,23 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract {
 		$this->add_field( $star_value );
 		$this->add_field( $lead_score );
 		$this->add_tags_field();
-
 	}
 
 
-	/**
-	 * @return void
-	 */
-	public function run() {
+	function run() {
+		$email = Clean::email( $this->get_option( 'email', true ) );
+		$first_name = Clean::string( $this->get_option( 'first_name', true ) );
+		$last_name = Clean::string( $this->get_option( 'last_name', true ) );
+		$company = Clean::string( $this->get_option( 'company', true ) );
+		$title = Clean::string( $this->get_option( 'title', true ) );
+		$address = Clean::string( $this->get_option( 'address' ) );
+		$star_value = Clean::string( $this->get_option( 'star_value', true ) );
+		$lead_score = Clean::string( $this->get_option( 'lead_score', true ) );
+		$tags = Clean::string( $this->get_option( 'tags', true ) );
 
-		$email = AutomateWoo\Clean::email( $this->get_option( 'email', true ) );
-		$first_name = aw_clean( $this->get_option( 'first_name', true ) );
-		$last_name = aw_clean( $this->get_option( 'last_name', true ) );
-		$company = aw_clean( $this->get_option( 'company', true ) );
-		$title = aw_clean( $this->get_option( 'title', true ) );
-		$address = aw_clean( $this->get_option( 'address' ) );
-		$star_value = absint( $this->get_option( 'star_value', true ) );
-		$lead_score = absint( $this->get_option( 'lead_score', true ) );
-		$tags = aw_clean( $this->get_option( 'tags', true ) );
-
-		if ( empty( $email ) || ! AW_AgileCRM()->api() )
+		if ( empty( $email ) || ! AW_AgileCRM()->api() ) {
 			return;
+		}
 
 		$contact = [
 			'properties' => []
@@ -141,7 +137,7 @@ class AW_Action_AgileCRM_Add_Contact extends AW_Action_AgileCRM_Abstract {
 			$order = $this->workflow->get_data_item( 'order' );
 			$user = $this->workflow->get_data_item( 'user' );
 
-			if ( $order || $user instanceof WP_User ) {
+			if ( $order || $user instanceof \WP_User ) {
 				$object = $order ? $order : $user;
 
 				switch ( $address ) {

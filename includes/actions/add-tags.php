@@ -1,13 +1,14 @@
 <?php
 
+namespace AutomateWoo;
+
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
- * @class AW_Action_AgileCRM_Add_Tags
+ * @class Action_AgileCRM_Add_Tags
  */
-class AW_Action_AgileCRM_Add_Tags extends AW_Action_AgileCRM_Abstract {
+class Action_AgileCRM_Add_Tags extends Action_AgileCRM_Abstract {
 
-	public $name = 'agilecrm_add_tags';
 
 	public function init() {
 		$this->title = __( 'Add Tags To Contact', 'automatewoo-agilecrm' );
@@ -32,8 +33,8 @@ class AW_Action_AgileCRM_Add_Tags extends AW_Action_AgileCRM_Abstract {
 	 */
 	public function run() {
 
-		$email = AutomateWoo\Clean::email( $this->get_option( 'email', true ) );
-		$tags = aw_clean( $this->get_option( 'tags', true ) );
+		$email = Clean::email( $this->get_option( 'email', true ) );
+		$tags = Clean::string( $this->get_option( 'tags', true ) );
 //		$create_missing_contact = $this->get_option('create_missing_contact');
 
 		if ( empty( $tags ) || empty( $email ) || ! AW_AgileCRM()->api() )

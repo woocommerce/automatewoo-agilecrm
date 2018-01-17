@@ -1,17 +1,17 @@
 <?php
-/**
- * @class AW_Action_AgileCRM_Abstract
- */
+
+namespace AutomateWoo;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-
-abstract class AW_Action_AgileCRM_Abstract extends AW_Action {
+/**
+ * @class Action_AgileCRM_Abstract
+ */
+abstract class Action_AgileCRM_Abstract extends Action {
 
 
 	function init() {
 		$this->group = __( 'AgileCRM', 'automatewoo-agilecrm' );
-		parent::init();
 	}
 
 
@@ -23,11 +23,10 @@ abstract class AW_Action_AgileCRM_Abstract extends AW_Action {
 
 
 	/**
-	 * @return AW_Field_Text_Input
+	 * @return Fields\Text
 	 */
 	function add_contact_email_field() {
-
-		$email = ( new AW_Field_Text_Input() )
+		$email = ( new Fields\Text() )
 			->set_name( 'email' )
 			->set_title( __( 'Contact Email', 'automatewoo-agilecrm' ) )
 			->set_required()
@@ -39,14 +38,17 @@ abstract class AW_Action_AgileCRM_Abstract extends AW_Action {
 	}
 
 
+	/**
+	 * @return Fields\Text
+	 */
 	function add_tags_field() {
-
-		$tag = ( new AW_Field_Text_Input() )
+		$tag = ( new Fields\Text() )
 			->set_name('tags')
 			->set_title( __( 'Tags', 'automatewoo-agilecrm' ) )
 			->set_description( __( 'Add multiple tags separated by commas. Please note that tags are case-sensitive.', 'automatewoo-agilecrm' ) );
 
 		$this->add_field($tag);
+		return $tag;
 	}
 }
 
