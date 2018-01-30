@@ -77,9 +77,11 @@ class AW_AgileCRM_Addon extends AutomateWoo\Addon {
 		if ( ! isset( $this->api ) ) {
 			include_once $this->path( '/includes/api.php' );
 
-			$api_domain = esc_attr( $this->options()->api_domain );
-			$api_email = esc_attr( $this->options()->api_email );
-			$api_key = esc_attr( $this->options()->api_key );
+			$api_domain = AutomateWoo\Clean::string( $this->options()->api_domain );
+			$api_email = AutomateWoo\Clean::string( $this->options()->api_email );
+			$api_key = AutomateWoo\Clean::string( $this->options()->api_key );
+
+			$api_domain = str_replace( [ 'http://', 'https://' ], '', $api_domain );
 
 			if ( $api_domain && $api_email && $api_key ) {
 				$this->api = new AutomateWoo\AgileCRM\API( $api_domain, $api_email, $api_key );
