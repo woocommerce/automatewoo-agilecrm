@@ -1,3 +1,8 @@
+1.4.1 *January 30, 2017*
+---
+* Tweak - Improve settings page
+
+
 1.4.0 *January 17, 2017*
 ---
 * Tweak - Compatibility updates with AutomateWoo core

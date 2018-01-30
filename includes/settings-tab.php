@@ -36,7 +36,8 @@ class Settings_Tab extends Admin_Settings_Tab_Abstract {
 			'title' => __( 'Account Domain', 'automatewoo-agilecrm' ),
 			'type' => 'text',
 			'desc' => '.agilecrm.com',
-			'css' => 'width: 150px'
+			'css' => 'width: 150px',
+			'tooltip' => __( "Do not include 'http://' or 'https://' in this field.", 'automatewoo-agilecrm' )
 		]);
 
 		$this->add_setting( 'api_email', [
