@@ -18,6 +18,10 @@ class AW_AgileCRM_Workflows {
 	 */
 	function actions( $actions ) {
 
+		if ( ! AW_AgileCRM()->api() ) {
+			return $actions; // api details not set
+		}
+
 		include_once AW_AgileCRM()->path( '/includes/actions/abstract.php' );
 		include_once AW_AgileCRM()->path( '/includes/actions/add-contact.php' );
 		include_once AW_AgileCRM()->path( '/includes/actions/add-tags.php' );
