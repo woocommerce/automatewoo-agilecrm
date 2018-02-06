@@ -2,6 +2,7 @@
 
 namespace AutomateWoo\AgileCRM;
 
+use AutomateWoo\Clean;
 use AutomateWoo\Compat;
 use AutomateWoo\Integration;
 use AutomateWoo\Remote_Request;
@@ -96,7 +97,7 @@ class API extends Integration {
 	 * @return string
 	 */
 	function parse_email( $email ) {
-		return preg_replace('/\+[^@]*/i' , '', sanitize_email( strtolower( $email ) ) );
+		return preg_replace('/\+[^@]*/i' , '', Clean::email( $email ) );
 	}
 
 
@@ -104,25 +105,34 @@ class API extends Integration {
 	 * Return false if not found
 	 *
 	 * @param $email
-	 * @return string|false
+	 * @return int|false
 	 */
 	function get_contact_id_by_email( $email ) {
 
 		$email = $this->parse_email( $email );
 
 		if ( $cache = $this->get_contact_id_cache( $email ) ) {
-			if ( $cache == '204' ) return false;  // no matching contact
-			return $cache;
+			if ( $cache == '204' ) {
+				return false; // no matching contact
+			}
+			return (int) $cache;
 		}
 
 		$response = $this->request( 'GET' , "/contacts/search/email/$email" );
 
 		// bail on failed request and don't set cache
-		if ( ! $response->is_successful() )
+		if ( ! $response->is_successful() ) {
 			return false;
+		}
 
 		$contact = $response->get_body();
-		$id = isset( $contact['id'] ) ? $contact['id'] : false;
+
+		if ( empty( $contact['id'] ) ) {
+			$this->set_contact_id_cache( $email );
+			return false;
+		}
+
+		$id = (int) $contact['id'];
 
 		$this->set_contact_id_cache( $email , $id );
 
@@ -131,12 +141,14 @@ class API extends Integration {
 
 
 	/**
-	 * @param $email
-	 * @param $id
+	 * @param string $email
+	 * @param bool|int $id
 	 */
-	function set_contact_id_cache( $email, $id ) {
-		if ( ! $id ) $id = '204'; // no matching contact
-		set_transient( 'aw_agilecrm_contact_id_' . md5( $this->parse_email( $email ) ), $id, DAY_IN_SECONDS * 7 );
+	function set_contact_id_cache( $email, $id = false ) {
+		if ( ! $id ) {
+			$id = '204'; // no matching contact
+		}
+		set_transient( 'aw_agilecrm_contact_id_' . md5( $this->parse_email( $email ) ), $id, HOUR_IN_SECONDS * 2 );
 	}
 
 
