@@ -48,7 +48,7 @@ class Settings_Tab extends Admin_Settings_Tab_Abstract {
 
 		$this->add_setting( 'api_key', [
 			'title' => __( 'API Key', 'automatewoo-agilecrm' ),
-			'type' => 'text',
+			'type' => 'password',
 			'tooltip' => __( 'Locate your AgileCRM API Key from Admin Settings -> API & Analytics -> REST API.', 'automatewoo-agilecrm' )
 		]);
 
