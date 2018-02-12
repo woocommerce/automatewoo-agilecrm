@@ -71,7 +71,7 @@ class AW_AgileCRM_Addon extends AutomateWoo\Addon {
 
 
 	/**
-	 * @return AutomateWoo\AgileCRM\API
+	 * @return AutomateWoo\AgileCRM\API|false
 	 */
 	public function api() {
 		if ( ! isset( $this->api ) ) {
