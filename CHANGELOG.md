@@ -1,9 +1,15 @@
-1.4.1 *January 30, 2017*
+1.4.2 *February 15, 2018*
+---
+* Tweak - Add variable validation warnings to actions
+* Tweak - Disable actions if API details are missing
+
+
+1.4.1 *January 30, 2018*
 ---
 * Tweak - Improve settings page
 
 
-1.4.0 *January 17, 2017*
+1.4.0 *January 17, 2018*
 ---
 * Tweak - Compatibility updates with AutomateWoo core
 
