@@ -30,7 +30,8 @@ abstract class Action_AgileCRM_Abstract extends Action {
 			->set_name( 'email' )
 			->set_title( __( 'Contact Email', 'automatewoo-agilecrm' ) )
 			->set_required()
-			->set_description( __( 'You can use variables such as {{ user.email }} or {{ guest.email }} here.', 'automatewoo-agilecrm' ) );
+			->set_description( __( 'You can use variables such as {{ customer.email }} here.', 'automatewoo-agilecrm' ) )
+			->set_variable_validation();
 
 		$this->add_field( $email );
 
@@ -45,7 +46,8 @@ abstract class Action_AgileCRM_Abstract extends Action {
 		$tag = ( new Fields\Text() )
 			->set_name('tags')
 			->set_title( __( 'Tags', 'automatewoo-agilecrm' ) )
-			->set_description( __( 'Add multiple tags separated by commas. Please note that tags are case-sensitive.', 'automatewoo-agilecrm' ) );
+			->set_description( __( 'Add multiple tags separated by commas. Please note that tags are case-sensitive.', 'automatewoo-agilecrm' ) )
+			->set_variable_validation();
 
 		$this->add_field($tag);
 		return $tag;

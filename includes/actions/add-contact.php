@@ -21,19 +21,23 @@ class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 
 		$first_name = ( new Fields\Text() )
 			->set_name( 'first_name' )
-			->set_title( __( 'First Name', 'automatewoo-agilecrm' ) );
+			->set_title( __( 'First Name', 'automatewoo-agilecrm' ) )
+			->set_variable_validation();
 
 		$last_name = ( new Fields\Text() )
 			->set_name( 'last_name' )
-			->set_title( __( 'Last Name', 'automatewoo-agilecrm' ) );
+			->set_title( __( 'Last Name', 'automatewoo-agilecrm' ) )
+			->set_variable_validation();
 
 		$company = ( new Fields\Text() )
 			->set_name( 'company' )
-			->set_title( __( 'Company', 'automatewoo-agilecrm' ) );
+			->set_title( __( 'Company', 'automatewoo-agilecrm' ) )
+			->set_variable_validation();
 
 		$title = ( new Fields\Text() )
 			->set_name( 'title' )
-			->set_title( __( 'Title', 'automatewoo-agilecrm' ) );
+			->set_title( __( 'Title', 'automatewoo-agilecrm' ) )
+			->set_variable_validation();
 
 		$address_choices = [
 			'billing' => __( 'Billing Address', 'automatewoo-agilecrm' ),

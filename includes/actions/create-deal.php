@@ -22,12 +22,14 @@ class Action_AgileCRM_Create_Deal extends Action_AgileCRM_Abstract {
 		$name = ( new Fields\Text() )
 			->set_name('name')
 			->set_title( __( 'Name', 'automatewoo-agilecrm' ) )
-			->set_required();
+			->set_required()
+			->set_variable_validation();
 
 		$value = ( new Fields\Text() )
 			->set_name('value')
 			->set_title( __( 'Value', 'automatewoo-agilecrm' ) )
-			->set_required();
+			->set_required()
+			->set_variable_validation();
 
 		$probability = ( new Fields\Number() )
 			->set_name('probability')
@@ -48,12 +50,14 @@ class Action_AgileCRM_Create_Deal extends Action_AgileCRM_Abstract {
 		$close_date = ( new Fields\Text() )
 			->set_name('close_date')
 			->set_title( __( 'Close Date', 'automatewoo-agilecrm' ) )
-			->set_description('e.g. {{ shop.current_datetime | modify : +1 week }}');
+			->set_description('e.g. {{ shop.current_datetime | modify : +1 week }}')
+			->set_variable_validation();
 
 		$description = ( new Fields\Text_Area() )
 			->set_name( 'description' )
 			->set_title( __( 'Description', 'automatewoo-agilecrm' ) )
-			->set_rows( 3 );
+			->set_rows( 3 )
+			->set_variable_validation();
 
 		$this->add_field( $name );
 		$this->add_field( $value );

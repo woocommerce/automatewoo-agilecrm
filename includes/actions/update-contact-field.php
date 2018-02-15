@@ -21,11 +21,13 @@ class Action_AgileCRM_Update_Contact_Field extends Action_AgileCRM_Abstract {
 		$field_name = ( new Fields\Text() )
 			->set_name('field_name')
 			->set_title( __( 'Custom Field Name', 'automatewoo-agilecrm' ) )
+			->set_variable_validation()
 			->set_required();
 
 		$field_value = ( new Fields\Text() )
 			->set_name('field_value')
-			->set_title( __( 'Custom Field Value', 'automatewoo-agilecrm' ) );
+			->set_title( __( 'Custom Field Value', 'automatewoo-agilecrm' ) )
+			->set_variable_validation();
 
 		$this->add_contact_email_field();
 		$this->add_field( $field_name );

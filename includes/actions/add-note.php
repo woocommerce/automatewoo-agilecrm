@@ -21,12 +21,14 @@ class Action_AgileCRM_Add_Note extends Action_AgileCRM_Abstract {
 		$subject = ( new Fields\Text() )
 			->set_name('subject')
 			->set_title( __( 'Note Subject', 'automatewoo-agilecrm' ) )
-			->set_required();
+			->set_required()
+			->set_variable_validation();
 
 		$description = ( new Fields\Text_Area() )
 			->set_name('description')
 			->set_title( __( 'Note Description', 'automatewoo-agilecrm' ) )
-			->set_rows( 3 );
+			->set_rows( 3 )
+			->set_variable_validation();
 
 		$this->add_contact_email_field();
 		$this->add_field( $subject );

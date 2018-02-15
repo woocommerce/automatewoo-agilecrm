@@ -22,7 +22,8 @@ class Action_AgileCRM_Add_Task extends Action_AgileCRM_Abstract {
 		$name = ( new Fields\Text() )
 			->set_name('subject')
 			->set_title( __( 'Task Name', 'automatewoo-agilecrm' ) )
-			->set_required();
+			->set_required()
+			->set_variable_validation();
 
 		$owner = ( new Fields\Select( false ) )
 			->set_name( 'owner' )
@@ -60,12 +61,14 @@ class Action_AgileCRM_Add_Task extends Action_AgileCRM_Abstract {
 			->set_name('due')
 			->set_title( __( 'Due', 'automatewoo-agilecrm' ) )
 			->set_placeholder('e.g. {{ shop.current_datetime | modify : +1 day }}')
+			->set_variable_validation()
 			->set_required();
 
 		$description = ( new Fields\Text_Area() )
 			->set_name('description')
 			->set_title( __( 'Description', 'automatewoo-agilecrm' ) )
-			->set_rows( 3 );
+			->set_rows( 3 )
+			->set_variable_validation();
 
 		$this->add_contact_email_field();
 		$this->add_field( $name );
