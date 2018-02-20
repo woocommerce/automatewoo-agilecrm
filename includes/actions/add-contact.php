@@ -82,7 +82,7 @@ class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 		$address = Clean::string( $this->get_option( 'address' ) );
 		$star_value = Clean::string( $this->get_option( 'star_value', true ) );
 		$lead_score = Clean::string( $this->get_option( 'lead_score', true ) );
-		$tags = Clean::string( $this->get_option( 'tags', true ) );
+		$tags = $this->parse_tags_string( $this->get_option( 'tags', true ) );
 
 		if ( empty( $email ) || ! AW_AgileCRM()->api() ) {
 			return;
@@ -169,7 +169,7 @@ class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 		if ( $lead_score ) $contact['lead_score'] = $lead_score;
 
 		if ( $tags ) {
-			$contact['tags'] = array_map( 'trim', explode( ',', $tags ) );
+			$contact['tags'] = $tags;
 		}
 
 		$response = AW_AgileCRM()->api()->request( $method, $endpoint, $contact );

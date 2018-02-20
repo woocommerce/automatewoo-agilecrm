@@ -52,6 +52,18 @@ abstract class Action_AgileCRM_Abstract extends Action {
 		$this->add_field($tag);
 		return $tag;
 	}
+
+
+	/**
+	 * @param $string
+	 * @return array
+	 */
+	function parse_tags_string( $string ) {
+		$tags = array_map( 'trim', explode( ',', Clean::string( $string ) ) );
+		return $tags;
+	}
+
+
 }
 
 

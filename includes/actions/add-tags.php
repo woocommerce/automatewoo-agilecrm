@@ -34,15 +34,13 @@ class Action_AgileCRM_Add_Tags extends Action_AgileCRM_Abstract {
 	public function run() {
 
 		$email = Clean::email( $this->get_option( 'email', true ) );
-		$tags = Clean::string( $this->get_option( 'tags', true ) );
+		$tags = $this->parse_tags_string( $this->get_option( 'tags', true ) );
 //		$create_missing_contact = $this->get_option('create_missing_contact');
 
 		if ( empty( $tags ) || empty( $email ) || ! AW_AgileCRM()->api() )
 			return;
 
 		$contact_id = AW_AgileCRM()->api()->get_contact_id_by_email( $email );
-
-		$tags = array_map( 'trim', explode( ',', $tags ) );
 
 		if ( $contact_id ) {
 			// add tags
