@@ -46,7 +46,7 @@ abstract class Action_AgileCRM_Abstract extends Action {
 		$tag = ( new Fields\Text() )
 			->set_name('tags')
 			->set_title( __( 'Tags', 'automatewoo-agilecrm' ) )
-			->set_description( __( 'Add multiple tags separated by commas. Please note that tags are case-sensitive.', 'automatewoo-agilecrm' ) )
+			->set_description( __( 'Add multiple tags separated by commas. Tags are case-sensitive. A tag should start with an alphanumeric character and cannot contain special characters other than underscore and space.', 'automatewoo-agilecrm' ) )
 			->set_variable_validation();
 
 		$this->add_field($tag);
@@ -59,6 +59,7 @@ abstract class Action_AgileCRM_Abstract extends Action {
 	 * @return array
 	 */
 	function parse_tags_string( $string ) {
+		$string = preg_replace( '/[^a-zA-Z_ ,0-9]/', ' ', $string );
 		$tags = array_map( 'trim', explode( ',', Clean::string( $string ) ) );
 		return $tags;
 	}
