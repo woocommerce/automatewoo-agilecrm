@@ -3,7 +3,7 @@
  * Plugin Name: AutomateWoo - AgileCRM Add-on
  * Plugin URI: http://automatewoo.com
  * Description: AgileCRM Integration add-on for AutomateWoo.
- * Version: 1.4.2
+ * Version: 1.4.3
  * Author: AutomateWoo
  * Author URI: http://automatewoo.com
  * License: GPLv3
@@ -27,9 +27,6 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 
-load_plugin_textdomain( 'automatewoo-agilecrm', false, "automatewoo-agilecrm/languages" );
-
-
 /**
  * @class AW_AgileCRM_Plugin_Data
  */
@@ -38,7 +35,7 @@ class AW_AgileCRM_Plugin_Data {
 	function __construct() {
 		$this->id = 'automatewoo-agilecrm';
 		$this->name = __( 'AutomateWoo - AgileCRM Add-on', 'automatewoo-agilecrm' );
-		$this->version = '1.4.2';
+		$this->version = '1.4.3';
 		$this->file = __FILE__;
 		$this->min_php_version = '5.4';
 		$this->min_automatewoo_version = '3.6.0';
@@ -67,6 +64,7 @@ class AW_AgileCRM_Loader {
 
 		add_action( 'admin_notices', array( __CLASS__, 'admin_notices' ) );
 		add_action( 'plugins_loaded', array( __CLASS__, 'load' ) );
+		add_action( 'plugins_loaded', array( __CLASS__, 'load_textdomain' ) );
 	}
 
 
@@ -76,7 +74,6 @@ class AW_AgileCRM_Loader {
 			include 'includes/automatewoo-agilecrm.php';
 		}
 	}
-
 
 
 	static function check() {
@@ -98,6 +95,11 @@ class AW_AgileCRM_Loader {
 		if ( ! self::is_woocommerce_version_ok() ) {
 			self::$errors[] = sprintf(__( '<strong>%s</strong> requires WooCommerce version %s or later.', 'automatewoo-agilecrm' ), self::$data->name, self::$data->min_woocommerce_version );
 		}
+	}
+
+
+	static function load_textdomain() {
+		load_plugin_textdomain( 'automatewoo-agilecrm', false, "automatewoo-agilecrm/languages" );
 	}
 
 

@@ -1,3 +1,9 @@
+1.4.3 *February 21, 2018*
+---
+* New - Add contact phone field to **Create / Update Contact** action
+* Fix - Remove invalid characters from tags before sending to API
+
+
 1.4.2 *February 15, 2018*
 ---
 * Tweak - Add variable validation warnings to actions
