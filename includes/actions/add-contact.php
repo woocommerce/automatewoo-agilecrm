@@ -29,6 +29,11 @@ class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 			->set_title( __( 'Last Name', 'automatewoo-agilecrm' ) )
 			->set_variable_validation();
 
+		$phone = ( new Fields\Text() )
+			->set_name( 'phone' )
+			->set_title( __( 'Phone', 'automatewoo-agilecrm' ) )
+			->set_variable_validation();
+
 		$company = ( new Fields\Text() )
 			->set_name( 'company' )
 			->set_title( __( 'Company', 'automatewoo-agilecrm' ) )
@@ -64,6 +69,7 @@ class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 		$this->add_contact_email_field();
 		$this->add_field( $first_name );
 		$this->add_field( $last_name );
+		$this->add_field( $phone );
 		$this->add_field( $company );
 		$this->add_field( $title );
 		$this->add_field( $address );
