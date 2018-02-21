@@ -79,6 +79,7 @@ class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 		$last_name = Clean::string( $this->get_option( 'last_name', true ) );
 		$company = Clean::string( $this->get_option( 'company', true ) );
 		$title = Clean::string( $this->get_option( 'title', true ) );
+		$phone = Clean::string( $this->get_option( 'phone', true ) );
 		$address = Clean::string( $this->get_option( 'address' ) );
 		$star_value = Clean::string( $this->get_option( 'star_value', true ) );
 		$lead_score = Clean::string( $this->get_option( 'lead_score', true ) );
@@ -127,6 +128,12 @@ class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 			'type' =>  'SYSTEM',
 			'name' => 'company',
 			"value" => $company
+		];
+
+		if ( $phone ) $contact['properties'][] = [
+			'type' =>  'SYSTEM',
+			'name' => 'phone',
+			'value' => $phone
 		];
 
 		if ( $title ) $contact['properties'][] = [
