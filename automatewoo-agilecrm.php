@@ -34,12 +34,12 @@ class AW_AgileCRM_Plugin_Data {
 
 	function __construct() {
 		$this->id = 'automatewoo-agilecrm';
-		$this->name = __( 'AutomateWoo - AgileCRM Add-on', 'automatewoo-agilecrm' );
+		$this->name = __( 'AutomateWoo - AgileCRM', 'automatewoo-agilecrm' );
 		$this->version = '1.4.3';
 		$this->file = __FILE__;
 		$this->min_php_version = '5.4';
 		$this->min_automatewoo_version = '3.6.0';
-		$this->min_woocommerce_version = '2.6';
+		$this->min_woocommerce_version = '2.6.0';
 	}
 }
 
@@ -78,22 +78,24 @@ class AW_AgileCRM_Loader {
 
 	static function check() {
 
+		$inactive_text = '<strong>' . sprintf( __( '%s is inactive.', 'automatewoo-agilecrm' ), self::$data->name ) . '</strong>';
+
 		if ( version_compare( phpversion(), self::$data->min_php_version, '<' ) ) {
-			self::$errors[] = sprintf( __( '<strong>%s</strong> requires PHP version %s+.' , 'automatewoo-agilecrm' ), self::$data->name, self::$data->min_php_version );
+			self::$errors[] = sprintf( __( '%s The plugin requires PHP version %s or newer.' , 'automatewoo-agilecrm' ), $inactive_text, self::$data->min_php_version );
 		}
 
 		if ( ! self::is_automatewoo_active() ) {
-			self::$errors[] = sprintf( __( '<strong>%s</strong> requires AutomateWoo to be installed and activated.' , 'automatewoo-agilecrm' ), self::$data->name );
+			self::$errors[] = sprintf( __( '%s The plugin requires AutomateWoo to be installed and activated.' , 'automatewoo-agilecrm' ), $inactive_text );
 		}
 		elseif ( ! self::is_automatewoo_version_ok() ) {
-			self::$errors[] = sprintf(__( '<strong>%s</strong> requires AutomateWoo version %s or later. Please update to the latest version.', 'automatewoo-agilecrm' ), self::$data->name, self::$data->min_automatewoo_version );
+			self::$errors[] = sprintf(__( '%s The plugin requires AutomateWoo version %s or newer.', 'automatewoo-agilecrm' ), $inactive_text, self::$data->min_automatewoo_version );
 		}
 		elseif ( ! self::is_automatewoo_directory_name_ok() ) {
-			self::$errors[] = sprintf(__( '<strong>%s</strong> - AutomateWoo plugin directory name is not correct.', 'automatewoo-agilecrm' ), self::$data->name );
+			self::$errors[] = sprintf(__( '%s AutomateWoo plugin directory name is not correct.', 'automatewoo-agilecrm' ), $inactive_text );
 		}
 
 		if ( ! self::is_woocommerce_version_ok() ) {
-			self::$errors[] = sprintf(__( '<strong>%s</strong> requires WooCommerce version %s or later.', 'automatewoo-agilecrm' ), self::$data->name, self::$data->min_woocommerce_version );
+			self::$errors[] = sprintf(__( '%s The plugin requires WooCommerce version %s or newer.', 'automatewoo-agilecrm' ), $inactive_text, self::$data->min_woocommerce_version );
 		}
 	}
 
@@ -141,7 +143,7 @@ class AW_AgileCRM_Loader {
 
 	static function admin_notices() {
 		if ( empty( self::$errors ) ) return;
-		echo '<div class="notice notice-warning"><p>';
+		echo '<div class="notice notice-error"><p>';
 		echo implode( '<br>', self::$errors );
 		echo '</p></div>';
 	}
