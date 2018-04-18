@@ -76,8 +76,8 @@ class API extends Integration {
 
 		$request = new Remote_Request( $url, $request_args );
 
-		if ( $request->is_failed() ) {
-			$this->log( $request->get_error_message() );
+		if ( $request->is_http_error() ) {
+			$this->log( $request->get_http_error_message() );
 		}
 		elseif ( ! $request->is_http_success_code() ) {
 			$this->log(
