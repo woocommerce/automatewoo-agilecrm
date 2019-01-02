@@ -1,3 +1,8 @@
+1.4.4 *January 2, 2019*
+---
+* Fix - Issue preventing the **Create / Update Contact** action from running
+
+
 1.4.3 *February 21, 2018*
 ---
 * New - Add contact phone field to **Create / Update Contact** action
