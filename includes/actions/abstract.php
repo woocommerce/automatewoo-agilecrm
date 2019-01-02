@@ -61,7 +61,7 @@ abstract class Action_AgileCRM_Abstract extends Action {
 	function parse_tags_string( $string ) {
 		$string = preg_replace( '/[^a-zA-Z_ ,0-9]/', ' ', $string );
 		$tags = array_map( 'trim', explode( ',', Clean::string( $string ) ) );
-		return $tags;
+		return array_filter( $tags );
 	}
 
 
