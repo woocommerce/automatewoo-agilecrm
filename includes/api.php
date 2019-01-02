@@ -3,7 +3,6 @@
 namespace AutomateWoo\AgileCRM;
 
 use AutomateWoo\Clean;
-use AutomateWoo\Compat;
 use AutomateWoo\Integration;
 use AutomateWoo\Remote_Request;
 
@@ -170,32 +169,48 @@ class API extends Integration {
 
 
 	/**
-	 * @param \WC_Order|\WP_User $order
+	 * @param \AutomateWoo\Data_Layer $data_layer
 	 * @param string $type shipping|billing
 	 * @return array
 	 */
-	function get_address_data_from_order( $order, $type = 'billing' ) {
-
+	function get_address_from_workflow_data( $data_layer, $type = 'billing' ) {
 		$data = [];
-		$countries = WC()->countries->get_countries();
 
 		switch ( $type ) {
 			case 'billing':
-				$states = WC()->countries->get_states( Compat\Order::get_billing_country( $order ) );
-				$data['address'] = trim( Compat\Order::get_billing_address_1( $order ) . ' ' . Compat\Order::get_billing_address_2( $order ) );
-				$data['city'] = Compat\Order::get_billing_city( $order );
-				$data['zip'] = Compat\Order::get_billing_postcode( $order );
-				$data['state'] = isset( $states[ Compat\Order::get_billing_state( $order ) ] ) ? $states[ Compat\Order::get_billing_state( $order ) ] : '';
-				$data['country'] = isset( $countries[ Compat\Order::get_billing_country( $order ) ] ) ? $countries[ Compat\Order::get_billing_country( $order ) ] : '';
+				$data['address'] = trim( $data_layer->get_customer_address_1() . ' ' . $data_layer->get_customer_address_2() );
+				$data['city']    = $data_layer->get_customer_city();
+				$data['zip']     = $data_layer->get_customer_postcode();
+				$data['state']   = aw_get_state_name( $data_layer->get_customer_country(), $data_layer->get_customer_state() );
+				$data['country'] = aw_get_country_name( $data_layer->get_customer_country() );
 				break;
 
 			case 'shipping':
-				$states = WC()->countries->get_states( Compat\Order::get_shipping_country( $order ) );
-				$data['address'] = trim( Compat\Order::get_shipping_address_1( $order ) . ' ' . Compat\Order::get_shipping_address_2( $order ) );
-				$data['city'] = Compat\Order::get_shipping_city( $order );
-				$data['zip'] = Compat\Order::get_shipping_postcode( $order );
-				$data['state'] = isset( $states[ Compat\Order::get_shipping_state( $order ) ] ) ? $states[ Compat\Order::get_shipping_state( $order ) ] : '';
-				$data['country'] = isset( $countries[ Compat\Order::get_shipping_country( $order ) ] ) ? $countries[ Compat\Order::get_shipping_country( $order ) ] : '';
+				$order = $data_layer->get_order();
+
+				if ( $order ) {
+					$data['address'] = trim( $order->get_shipping_address_1() . ' ' . $order->get_shipping_address_2() );
+					$data['city']    = $order->get_shipping_city();
+					$data['zip']     = $order->get_shipping_postcode();
+					$data['state']   = aw_get_state_name( $order->get_shipping_country(), $order->get_shipping_state() );
+					$data['country'] = aw_get_country_name( $order->get_shipping_country() );
+				}
+				else {
+					$customer = $data_layer->get_customer();
+
+					if ( $customer ) {
+						$user = $customer->get_user();
+
+						if ( $user ) {
+							$data['address'] = trim( $user->shipping_address_1 . ' ' . $user->shipping_address_2 );
+							$data['city']    = $user->shipping_city;
+							$data['zip']     = $user->shipping_postcode;
+							$data['state']   = aw_get_state_name( $user->shipping_country, $user->shipping_state );
+							$data['country'] = aw_get_country_name( $user->shipping_country );
+						}
+					}
+				}
+
 				break;
 		}
 		return $data;

@@ -38,8 +38,8 @@ class AW_AgileCRM_Plugin_Data {
 		$this->version = '1.4.3';
 		$this->file = __FILE__;
 		$this->min_php_version = '5.4';
-		$this->min_automatewoo_version = '3.6.0';
-		$this->min_woocommerce_version = '2.6.0';
+		$this->min_automatewoo_version = '4.3.0';
+		$this->min_woocommerce_version = '3.0.0';
 	}
 }
 

@@ -86,7 +86,7 @@ class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 		$company = Clean::string( $this->get_option( 'company', true ) );
 		$title = Clean::string( $this->get_option( 'title', true ) );
 		$phone = Clean::string( $this->get_option( 'phone', true ) );
-		$address = Clean::string( $this->get_option( 'address' ) );
+		$address_type = Clean::string( $this->get_option( 'address' ) );
 		$star_value = Clean::string( $this->get_option( 'star_value', true ) );
 		$lead_score = Clean::string( $this->get_option( 'lead_score', true ) );
 		$tags = $this->parse_tags_string( $this->get_option( 'tags', true ) );
@@ -149,23 +149,11 @@ class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 		];
 
 
-		if ( $address ) {
-			$address_data = false;
-			$order = $this->workflow->get_data_item( 'order' );
-			$user = $this->workflow->get_data_item( 'user' );
+		if ( $address_type ) {
+			$data_layer = $this->workflow->data_layer();
 
-			if ( $order || $user instanceof \WP_User ) {
-				$object = $order ? $order : $user;
-
-				switch ( $address ) {
-					case 'billing':
-						$address_data = AW_AgileCRM()->api()->get_address_data_from_order( $object, 'billing' );
-						break;
-
-					case 'shipping':
-						$address_data = AW_AgileCRM()->api()->get_address_data_from_order( $object, 'shipping' );
-						break;
-				}
+			if ( $data_layer ) {
+				$address_data = AW_AgileCRM()->api()->get_address_from_workflow_data( $this->workflow->data_layer(), $address_type );
 
 				if ( $address_data ) {
 					$contact['properties'][] = [
