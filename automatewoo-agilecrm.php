@@ -9,6 +9,7 @@
  * License: GPLv3
  * License URI: http://www.gnu.org/licenses/gpl-3.0
  * Text Domain: automatewoo-agilecrm
+ * GitHub Plugin URI: Prospress/automatewoo-agilecrm
  */
 
 
