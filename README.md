@@ -6,8 +6,6 @@ A list of features included in this add-on are [available on the website](https:
 
 ## Installation
 
-Please note, this plugin is currently pre-release. It is a work in progress, being worked on in public rather than waiting until it is finished.
-
 To install:
 
 1. Download the latest version of the plugin [here](https://github.com/Prospress/automatewoo-agilecrm/archive/master.zip)
