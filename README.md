@@ -8,7 +8,7 @@ A list of features included in this add-on are [available on the website](https:
 
 To install:
 
-1. Download the latest version of the plugin [here](https://github.com/Prospress/automatewoo-agilecrm/archive/master.zip)
+1. Download the latest version of the plugin [here](https://github.com/woocommerce/automatewoo-agilecrm/releases)
 1. Go to **Plugins > Add New > Upload** administration screen on your WordPress site
 1. Select the ZIP file you just downloaded
 1. Click **Install Now**
