@@ -70,7 +70,7 @@ gulp.task( 'wp-pot', [ 'clean:pot' ], () => {
 			//'bugReport': packageJSON.bugs.url,
 			'domain': packageJSON.name,
 			'package': packageJSON.title,
-			'team': 'Prospress Translations <translations@prospress.com>',
+			'team': '',
 			'writeFile': false,
 			'headers': {
 				'Language': 'en_US',
