@@ -1,3 +1,8 @@
+1.4.5 *October 16, 2020*
+---
+* Tweak - Renames production branch from 'master' to 'trunk'
+
+
 1.4.4 *January 2, 2019*
 ---
 * Fix - Issue preventing the **Create / Update Contact** action from running
