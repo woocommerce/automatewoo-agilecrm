@@ -10,9 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Action_AgileCRM_Add_Tags extends Action_AgileCRM_Abstract {
 
 
-	public function init() {
+	public function load_admin_details() {
 		$this->title = __( 'Add Tags To Contact', 'automatewoo-agilecrm' );
-		parent::init();
 	}
 
 

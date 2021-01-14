@@ -9,9 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 abstract class Action_AgileCRM_Abstract extends Action {
 
-
-	function init() {
-		$this->group = __( 'AgileCRM', 'automatewoo-agilecrm' );
+	/**
+	 * Get action group.
+	 *
+	 * @return string
+	 */
+	public function get_group() {
+		return __( 'AgileCRM', 'automatewoo-agilecrm' );
 	}
 
 
