@@ -10,9 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Action_AgileCRM_Remove_Tags extends Action_AgileCRM_Abstract {
 
 
-	function init() {
+	function load_admin_details() {
 		$this->title = __( 'Remove Tags From Contact', 'automatewoo-agilecrm');
-		parent::init();
 	}
 
 

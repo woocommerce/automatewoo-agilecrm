@@ -1,3 +1,7 @@
+1.4.6 *January 19, 2021*
+---
+* Fix - Missing action names in admin area
+
 1.4.5 *October 16, 2020*
 ---
 * Tweak - Renames production branch from 'master' to 'trunk'
