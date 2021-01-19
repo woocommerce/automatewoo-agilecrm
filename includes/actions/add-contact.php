@@ -10,10 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Action_AgileCRM_Add_Contact extends Action_AgileCRM_Abstract {
 
 
-	public function init() {
+	public function load_admin_details() {
 		$this->title = __( 'Create / Update Contact', 'automatewoo-agilecrm' );
 		$this->description = __( 'This trigger can be used to create or update contacts in AgileCRM. If an existing contact is found by email then an update will occur otherwise a new contact will be created. When updating a contact any fields left blank will not be updated e.g. if you only want to update the address just select an address and enter an email, all other fields can be left blank.', 'automatewoo-agilecrm' );
-		parent::init();
 	}
 
 

@@ -11,9 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Action_AgileCRM_Create_Deal extends Action_AgileCRM_Abstract {
 
 
-	function init() {
+	function load_admin_details() {
 		$this->title = __('Create Deal', 'automatewoo-agilecrm');
-		parent::init();
 	}
 
 

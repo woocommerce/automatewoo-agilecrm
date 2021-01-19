@@ -11,9 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Action_AgileCRM_Update_Contact_Field extends Action_AgileCRM_Abstract {
 
 
-	function init() {
+	function load_admin_details() {
 		$this->title = __( 'Update Contact Custom Field', 'automatewoo-agilecrm' );
-		parent::init();
 	}
 
 

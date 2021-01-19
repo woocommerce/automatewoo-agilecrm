@@ -10,10 +10,9 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 class Action_AgileCRM_Add_Task extends Action_AgileCRM_Abstract {
 
 
-	public function init() {
+	public function load_admin_details() {
 		$this->title = __( 'Add Task To Contact', 'automatewoo-agilecrm' );
 		$this->description = __( 'Please note you must first create the contact in AgileCRM before assigning any tasks to them.', 'automatewoo-agilecrm' );
-		parent::init();
 	}
 
 
